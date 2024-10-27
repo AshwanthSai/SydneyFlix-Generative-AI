@@ -8,40 +8,45 @@ import Sidebar from "../SideBar/SideBar.jsx"
 import useTheme from "@mui/material/styles/useTheme";
 
 /* 
-  Implements both Navigation and Side Bar
+  Nav Bar
+    > Tool Bar
+    > Side Bar
 */
-
 const NavBar = () => {
-  console.clear();
   const classes = useStyles();
   /* Anything above 600px is not Mobile */
   const isMobile = useMediaQuery('(max-width:600px)');
+  /* For Left Nav Bar */
   const [mobileOpen, setMobileOpen] = useState(false)
+  /* Aux for Fire Base */
   const [authenticated, isAuthenticated] = useState(true)
-  const theme = useTheme();
 
+  const theme = useTheme();
   return (
     <>
     {/* 
+      For Tool Bar on Top
       App Bar is just a parent to Toolbar
     */}    
       <AppBar position = "fixed">
+      {/* Toolbar is the Blue Ribbon with Buttons */}
         <Toolbar className = {classes.toolbar}>
+          {/*  Hamburger Menu  */}
           {isMobile &&  
-           /* Icon Button -  Buttons will be larger size */
             <IconButton
               color = "inherit"
               edge = "start"
               style = {{outline : "none"}}
               onClick = {() => setMobileOpen((previousMobileState) => (!previousMobileState))}
-            
               className = {classes.menuButton}
             >
               <Menu/>
             </IconButton>
           }
+          {/* Dark Mode && Light Mode Switch */}
           <IconButton color="inherit" sx={{ml:1}}
            onClick = {() => {}}>
+           {/* Brightness4 & Brightness 7 are Buttons */}
             {theme.palette.mode === "dark" ? <Brightness4/> : <Brightness7 /> }
            </IconButton>
            {/* If not mobile, search in center or at last. */}
@@ -79,9 +84,11 @@ const NavBar = () => {
                   </Button>
                 )}
             </div>
+            {/* If mobile, then render search last, in that case it will pop up to next line. */}
             {isMobile && "Search..."}
         </Toolbar>
       </AppBar>
+      {/* For Side Bar */}
       <div>
         {/* Semantic Tag, we will use sidebar for navigation */}
           <nav className = {classes.drawer}>
@@ -90,10 +97,11 @@ const NavBar = () => {
               <Drawer
                 variant = "temporary" // It should hide automatically
                 anchor = "right" // It should open from right
-                open = {mobileOpen} //State
+                open = {mobileOpen} // State
                 classes = {{paper : classes.drawerPaper}}
                 // Model is always mounted to the DOM
                 ModalProps = {{keepMounted:true}}
+                // Internally manages, closing of the Side Bar
                 onClose = {() => setMobileOpen((previousState) => !previousState)
                 }
               >

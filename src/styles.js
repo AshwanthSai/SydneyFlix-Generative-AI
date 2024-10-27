@@ -1,8 +1,11 @@
-import React from "react";
 import { makeStyles } from "@mui/styles";
-import { red } from "@mui/material/colors";
 
-/* App Level Style */
+/* 
+    1. App Level Style 
+    2. Calling makeStyles returns an object with CSS.
+    3. Notice, numbers are mentioned as Strings.
+*/
+
 export default makeStyles(() => ({
     root: {
         display : "flex",

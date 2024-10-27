@@ -8,7 +8,9 @@ export default makeStyles(() => ({
         padding: '10% 0',
       },
       image: {
-        width: '70%',
+        height:"100%",
+        width: '100%',
+        padding : "0"
       },
    /*   
     genreImages : {

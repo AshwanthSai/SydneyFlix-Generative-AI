@@ -3,17 +3,21 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {Switch,Route,Link} from "react-router-dom";
 import {Actors, Movies, MoviesInformation, NavBar, Profile} from "./Components/index.js"
 import useStyles from "./styles"
+import { Provider } from 'react-redux'
 
 export const App = () => {
+  /* Returns an Object with Classnames as key and properties as values. */
   const classes = useStyles();
-  
   return (
     <React.Fragment>
+    {/* Attaching class from classes object */}
       <div className={classes.root}>
+        {/* Adds MUI Baseline Styles to Entire App */}
         <CssBaseline />
         <header>
           <NavBar/>
         </header>
+        {/* All Content Component is Wrapped in a Main Div */}
         <main className={classes.content}>
           <div className={classes.toolbar}>
             <Switch>

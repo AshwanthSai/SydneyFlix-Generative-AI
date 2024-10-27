@@ -9,13 +9,16 @@ export default makeStyles((theme) => ({
         height: "80px",
         display: "flex",
         justifyContent: "space-between",
+        /* For Left Tool Bar */
         marginLeft: "240px",
         /*
             Apply these styles to 
             screen sizes smaller than
          */
         [theme.breakpoints.down("sm")]: {
+            /* No Left Tool Bar */
             marginLeft: "0",
+            /* Break buttons into two lines. */
             flexWrap: "wrap"
         },
     },

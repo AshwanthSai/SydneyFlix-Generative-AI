@@ -16,8 +16,11 @@ export const tmdbApi = createApi({
       query: () => `movie/popular?language=en-US&page=${page}`,
        // Ensure the endpoint is correct
     }),
+    getGenres: builder.query({
+      query: () => `genre/movie/list?language=en`,
+    }),
   }),
 });
 
 // Export hooks for usage in functional components
-export const { useGetMoviesQuery  } = tmdbApi;
+export const { useGetMoviesQuery, useGetGenresQuery} = tmdbApi;

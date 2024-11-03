@@ -3,27 +3,34 @@ import {Divider, List, ListItem,ListItemButton, ListItemText, ListSubheader, Lis
 import {Link} from  "react-router-dom"
 import useStyles from "./Sidebar"
 import useTheme from "@mui/material/styles/useTheme";
-import Blue from "../../Assets/Blue.png"
-import Red from "../../Assets/Red.png"
+import Blue from "../../assets/Blue.png"
+import Red from "../../assets/Red.png"
+import { useGetGenresQuery } from "../../services/TMDB";
+/* 
+  If you do this, it automatically pulls from index.js
+  an Object in this case.
+*/
+import genreIcons from "../../assets/genres"; 
 
 const categories = [
   /* Value to send to API */
   {label:"Popular", value : "popular"},
-  {label:"Top Rated", value : "top_rated"},
+  {label:"Top Rated", value : "top rated"},
   {label:"Upcoming", value : "upcoming"},
 ]
 
 const genres = [
-  {label:"Comedy", value : "comedy"},
-  {label:"Action", value : "action"},
-  {label:"Horror", value : "horror"},
-  {label:"Animation", value : "animation"}
+  {id:"Comedy", name : "comedy"},
+  {id:"Action", name : "action"},
+  {id:"Horror", name : "horror"},
+  {id:"Animation", name : "animation"}
 ]
 
 const SideBar = ({setMobileOpen}) => {
   const theme = useTheme();
   const classes = useStyles();
-  
+  const {data, isFetching} = useGetGenresQuery()
+
   return (
     <>
       {/* Logo Link*/}
@@ -47,7 +54,7 @@ const SideBar = ({setMobileOpen}) => {
                         <ListItemIcon>
                         <img 
                             className={classes.image}
-                            src = {Red}     
+                            src = {genreIcons[value.toLowerCase()]}     
                             style={{ height: "20px", width: "20px" }} // Corrected style prop
                         />
                         </ListItemIcon>
@@ -64,20 +71,28 @@ const SideBar = ({setMobileOpen}) => {
           </ListSubheader>
         }
       >
-      {genres.map(({label, value}) => {
-          return (<ListItem onClick = {() => {}} key ={value}>
+      {isFetching ? (
+        <Box display="flex" justifyContent="center">
+        <CircularProgress size="4rem" />
+        </Box>
+      ) : 
+        (data.genres.map(({id, name}) => {
+          return (
+            <ListItem id onClick = {() => {}} key ={id}>
                     <ListItemButton component="a" href="#simple-list">
                         <ListItemIcon>
                         <img 
                             className={classes.genreImages}
-                            src = {Red}      
+                            src = {genreIcons[name.toLowerCase()]}      
                             style={{ height: "20px", width: "20px" }} // Corrected style prop
                         />
                         </ListItemIcon>
-                      <ListItemText primary={label} />
+                      <ListItemText primary={name} />
                     </ListItemButton>
-                  </ListItem>)
-      })}
+            </ListItem>
+          )
+        }))
+      }
       </List>
     </>
   )

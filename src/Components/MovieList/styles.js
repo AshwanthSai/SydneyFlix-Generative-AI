@@ -5,10 +5,10 @@ export default makeStyles((theme) => ({
     display : "flex",
     flexWrap : "wrap",
     justifyContent : "space-between",
-    overflow : "auto"
-   },
+    overflow : "auto",
    /* For Smaller Screen */
-   [theme.breakpoints.down("sm")]: {
-    justifyContent : "center",
+    [theme.breakpoints.down("sm")]: {
+        justifyContent : "center",
+    },
     },
 }));

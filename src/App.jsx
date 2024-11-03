@@ -15,6 +15,7 @@ export const App = () => {
         {/* Adds MUI Baseline Styles to Entire App */}
         <CssBaseline />
         <header>
+        {/* Holds Both Side Bar and Tool Bar */}
           <NavBar/>
         </header>
         {/* All Content Component is Wrapped in a Main Div */}

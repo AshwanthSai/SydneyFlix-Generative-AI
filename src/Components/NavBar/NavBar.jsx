@@ -6,7 +6,7 @@ import useStyles from "./NavBarStyle"
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Sidebar from "../SideBar/SideBar.jsx"
 import useTheme from "@mui/material/styles/useTheme";
-
+import {Search} from ".."
 /* 
   Nav Bar
     > Tool Bar
@@ -50,7 +50,7 @@ const NavBar = () => {
             {theme.palette.mode === "dark" ? <Brightness4/> : <Brightness7 /> }
            </IconButton>
            {/* If not mobile, search in center or at last. */}
-           {!isMobile && "Search..."}
+           {!isMobile && <Search/>}
             <div>
             {/* 
               If not authenticated 
@@ -85,7 +85,7 @@ const NavBar = () => {
                 )}
             </div>
             {/* If mobile, then render search last, in that case it will pop up to next line. */}
-            {isMobile && "Search..."}
+            {isMobile && <Search/>}
         </Toolbar>
       </AppBar>
       {/* For Side Bar */}

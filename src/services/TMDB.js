@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const page = 1;
-const API_KEY = process.env.REACT_APP_TMDBKEY; // Ensure this is defined in your .env file
+const API_KEY = process.env.REACT_APP_TMDBKEY; 
 
 // Define a service using a base URL and expected endpoints
 export const tmdbApi = createApi({
@@ -11,10 +10,36 @@ export const tmdbApi = createApi({
      headers: {Authorization: `Bearer ${API_KEY}`}
   }),
   endpoints: (builder) => ({
-    // Get Popular Movies 
+    /* 
+      Get Movies - depending on category or genre 
+      Default Popular Movies for Home Page 
+    */
     getMovies: builder.query({
-      query: () => `movie/popular?language=en-US&page=${page}`,
-       // Ensure the endpoint is correct
+      query: ({genreIdOrCategoryName, page, searchQuery}) => {
+        const genre = genreIdOrCategoryName;
+        
+        if(searchQuery){
+          return `search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${page}`;
+        }
+        /* 
+          For Movie Lists -> Upcoming, Top Rated or Popular
+         */
+        if(genre && typeof(genre)===  "string") {
+          console.log("Called")
+          return `movie/${genre}?language=en-US&page=${page}`
+        }
+        /* 
+          For Movie Lists on the basis of Genre
+        */
+        if(genre && typeof(genre) === "number") {
+          console.log("Called")
+          return `discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genre}`;
+        }
+
+        /* For Home Page*/
+        console.log("Popular")
+        return `movie/popular?language=en-US&page=${page}`
+      },
     }),
     getGenres: builder.query({
       query: () => `genre/movie/list?language=en`,

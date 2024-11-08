@@ -6,7 +6,7 @@ const drawerWidth = 240;
 export default makeStyles((theme) => ({
     /* Tool Bar - Nav Bar */
     toolbar: {
-        height: "80px",
+        height: "90px",
         display: "flex",
         justifyContent: "space-between",
         /* For Left Tool Bar */

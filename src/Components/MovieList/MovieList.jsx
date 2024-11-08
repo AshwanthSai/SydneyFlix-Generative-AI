@@ -7,9 +7,10 @@ const MovieList = ({ movies }) => {
     const classes = useStyles()
     return (
         <Grid container spacing={2.5} className={classes.moviesContainer}>
-            {movies.results.map((movie,i) => (
+           {/* For Categories */}
+            {movies.results && (movies.results.map((movie,i) => (
                 <Movie key={i} movie={movie} i={i} /> 
-            ))}
+            )))}
         </Grid>
     );
 };

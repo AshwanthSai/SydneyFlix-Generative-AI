@@ -2,13 +2,15 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_KEY = process.env.REACT_APP_TMDBKEY; 
 
-// Define a service using a base URL and expected endpoints
+//* Basic Input -> Out
+/* Aux Explanations */
 export const tmdbApi = createApi({
   reducerPath: 'tmdbApi',
   baseQuery: fetchBaseQuery({
      baseUrl: 'https://api.themoviedb.org/3/',
      headers: {Authorization: `Bearer ${API_KEY}`}
   }),
+
   endpoints: (builder) => ({
     /* 
       Get Movies - depending on category or genre 
@@ -17,7 +19,8 @@ export const tmdbApi = createApi({
     getMovies: builder.query({
       query: ({genreIdOrCategoryName, page, searchQuery}) => {
         const genre = genreIdOrCategoryName;
-        
+
+        /* For Search Query */
         if(searchQuery){
           return `search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${page}`;
         }
@@ -37,7 +40,6 @@ export const tmdbApi = createApi({
         }
 
         /* For Home Page*/
-        console.log("Popular")
         return `movie/popular?language=en-US&page=${page}`
       },
     }),

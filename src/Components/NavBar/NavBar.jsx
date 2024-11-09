@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {AppBar, IconButton, Toolbar, Drawer, Button, Avatar} from "@mui/material"
 import {Menu, AccountCircle, Brightness4, Brightness7} from "@mui/icons-material"
 import {Link} from "react-router-dom"
@@ -7,6 +7,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Sidebar from "../SideBar/SideBar.jsx"
 import useTheme from "@mui/material/styles/useTheme";
 import {Search} from ".."
+import { fetchSessionID, fetchToken, moviesApi } from "../../utils/fetchToken.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData} from "../../features/auth.js";
+import {userSelector} from "../../features/auth.js";
+
 /* 
   Nav Bar
     > Tool Bar
@@ -18,10 +23,47 @@ const NavBar = () => {
   const isMobile = useMediaQuery('(max-width:600px)');
   /* For Left Nav Bar */
   const [mobileOpen, setMobileOpen] = useState(false)
-  /* Aux for Fire Base */
-  const [authenticated, isAuthenticated] = useState(true)
-
+  /* Used for Toggle */
   const theme = useTheme();
+  const token = localStorage.getItem("token")
+  const sessionIdFromLocalStorage = localStorage.getItem("session_id"); 
+  const dispatch = useDispatch();
+  /* Aux for login button, User.id to redirect to profile page. */
+  const {isAuthenticated, user} = useSelector(userSelector)
+  /* 
+    If token exists and sessionIdFromLocalStorage
+      - then request for User Data
+    Else fetch Session ID
+      - then request for User Data
+  */
+  useEffect(() => {
+      const loginUser = async () => {
+        try {
+          if (token) {
+            if (sessionIdFromLocalStorage) {
+              /* 
+               Once session is stored, since it is dependency for Use Effect.
+               Component, re-renders and enters branch 2 
+              */
+              const { data: userData } = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`);
+              console.log(data)
+              console.log(userData)
+              dispatch(setUserData(userData))
+            } else {
+              const session_id = await fetchSessionID(); 
+              const { data: userData } = await moviesApi.get(`/account?session_id=${session_id}`);
+              console.log(data)
+              console.log(userData)
+              dispatch(setUserData(userData))
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
+      loginUser();
+    }, [token, sessionIdFromLocalStorage]); 
+
   return (
     <>
     {/* 
@@ -61,7 +103,7 @@ const NavBar = () => {
               {!isAuthenticated ? (
                   <Button
                     color = "inherit"
-                    onClick = {() => {}}
+                    onClick = {() => fetchToken()}
                   >
                     Login &nbsp; <AccountCircle/>
                   </Button>  
@@ -71,7 +113,7 @@ const NavBar = () => {
                     color = "inherit"
                     // Note the button is a Link
                     component = {Link}
-                    to = "/profile/:id"
+                    to = {`/profile/${user.id}`}
                     className = {classes.linkButton}
                     onClick = {() => {}}
                   >

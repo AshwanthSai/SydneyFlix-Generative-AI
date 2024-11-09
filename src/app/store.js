@@ -3,13 +3,16 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { tmdbApi } from "../services/TMDB";
 /* Object below contains all our Reducers */
 import genreOrCategoryReducer from '../features/currentGenreOrCategory';
+import userReducer from '../features/auth';
 
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
     [tmdbApi.reducerPath]: tmdbApi.reducer,
     /* Slice Name : Reducer Object with All Reducers */
-    currentGenreOrCategory : genreOrCategoryReducer
+    currentGenreOrCategory : genreOrCategoryReducer,
+    // Slice for managing user authentication
+    user : userReducer
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

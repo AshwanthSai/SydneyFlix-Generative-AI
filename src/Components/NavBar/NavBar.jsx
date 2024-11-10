@@ -18,7 +18,6 @@ import {userSelector} from "../../features/auth.js";
     > Side Bar
 */
 
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 const NavBar = () => {
   const classes = useStyles();
   /* Anything above 600px is not Mobile */
@@ -69,7 +68,7 @@ const NavBar = () => {
       For Tool Bar on Top
       App Bar is just a parent to Toolbar
     */}    
-      <AppBar position = "fixed">
+      <AppBar position="fixed">
       {/* Toolbar is the Blue Ribbon with Buttons */}
           <Toolbar className = {classes.toolbar}>
             {/*  Hamburger Menu  */}
@@ -129,9 +128,9 @@ const NavBar = () => {
               {isMobile && <Search/>}
           </Toolbar>
       </AppBar>
-      <Offset />
       {/* For Side Bar */}
       <div>
+      <Toolbar/>
         {/* Semantic Tag, we will use sidebar for navigation */}
           <nav className = {classes.drawer}>
           { isMobile ?

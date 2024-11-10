@@ -26,8 +26,8 @@ export default makeStyles((theme) => ({
         height: "300px",
         marginTop: "10px",
         "&:hover": {
-            transform: "scale(1.10)",
-            transition: "transform 0.4s ease-in-out"
+            transform: "scale(1.05)",
+            transition: "transform 0.1s ease-in-out"
         }
     },
     title: {

@@ -30,15 +30,15 @@ export const fetchToken = async () => {
 
 export const fetchSessionID = async() => {
     try {
+        // You could data.success here to check if the response, is in the way we want.
         const {data: {session_id}} = await moviesApi.post(`authentication/session/new`, {
             request_token: localStorage.getItem("token")
         });
-        if(data.success) {
-            localStorage.setItem("session_id", session_id)
-        }
+        localStorage.setItem("session_id", session_id)
         console.log(session_id)
         return session_id;
     } catch(error) {    
         console.log("Could not fetch Session ID", error)
     }
 }
+ 

@@ -35,10 +35,12 @@ export default makeStyles((theme) => ({
         /* For ... large sentences */
         textOverflow: "ellipsis",
         /* Size of each card title length */
-        width: "230px",
+        width: "200px",
         /* Combine White Space Sequences into single space */
         whiteSpace: "nowrap",
         /* Do not show overflow */
+        fontSize: "15px",
+        fontWeight: "bold",
         overflow: "hidden",
         marginTop: "10px",
         marginBottom: "0",

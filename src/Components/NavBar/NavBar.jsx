@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {AppBar, IconButton, Toolbar, Drawer, Button, Avatar} from "@mui/material"
+import {AppBar, IconButton, Toolbar, Drawer, Button, Avatar, Box, styled} from "@mui/material"
 import {Menu, AccountCircle, Brightness4, Brightness7} from "@mui/icons-material"
 import {Link} from "react-router-dom"
 import useStyles from "./NavBarStyle"
@@ -17,6 +17,8 @@ import {userSelector} from "../../features/auth.js";
     > Tool Bar
     > Side Bar
 */
+
+const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 const NavBar = () => {
   const classes = useStyles();
   /* Anything above 600px is not Mobile */
@@ -45,16 +47,13 @@ const NavBar = () => {
                Once session is stored, since it is dependency for Use Effect.
                Component, re-renders and enters branch 2 
               */
-              const { data: userData } = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`);
-              console.log(data)
-              console.log(userData)
-              dispatch(setUserData(userData))
+              const { data} = await moviesApi.get(`/account?session_id=${sessionIdFromLocalStorage}`);
+              dispatch(setUserData(data))
             } else {
               const session_id = await fetchSessionID(); 
-              const { data: userData } = await moviesApi.get(`/account?session_id=${session_id}`);
-              console.log(data)
-              console.log(userData)
-              dispatch(setUserData(userData))
+              console.log(session_id)
+              const {data} = await moviesApi.get(`/account?session_id=${session_id}`);
+              dispatch(setUserData(data))
             }
           }
         } catch (error) {
@@ -72,64 +71,65 @@ const NavBar = () => {
     */}    
       <AppBar position = "fixed">
       {/* Toolbar is the Blue Ribbon with Buttons */}
-        <Toolbar className = {classes.toolbar}>
-          {/*  Hamburger Menu  */}
-          {isMobile &&  
-            <IconButton
-              color = "inherit"
-              edge = "start"
-              style = {{outline : "none"}}
-              onClick = {() => setMobileOpen((previousMobileState) => (!previousMobileState))}
-              className = {classes.menuButton}
-            >
-              <Menu/>
-            </IconButton>
-          }
-          {/* Dark Mode && Light Mode Switch */}
-          <IconButton color="inherit" sx={{ml:1}}
-           onClick = {() => {}}>
-           {/* Brightness4 & Brightness 7 are Buttons */}
-            {theme.palette.mode === "dark" ? <Brightness4/> : <Brightness7 /> }
-           </IconButton>
-           {/* If not mobile, search in center or at last. */}
-           {!isMobile && <Search/>}
-            <div>
-            {/* 
-              If not authenticated 
-              Show login button
-              Else show
-              My Movies and a Profile Link 
-            */}
-              {!isAuthenticated ? (
-                  <Button
-                    color = "inherit"
-                    onClick = {() => fetchToken()}
-                  >
-                    Login &nbsp; <AccountCircle/>
-                  </Button>  
-                 )
-                : (
-                  <Button
-                    color = "inherit"
-                    // Note the button is a Link
-                    component = {Link}
-                    to = {`/profile/${user.id}`}
-                    className = {classes.linkButton}
-                    onClick = {() => {}}
-                  >
-                    {!isMobile && <> My Movies &nbsp;</>}
-                    <Avatar 
-                      style = {{width : 30, height : 30}}
-                      alt = "Profile"
-                      src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_kSSoomJ9hiFXmiF2RdZlwx72Y23XsT6iwQ&s"
-                    />
-                  </Button>
-                )}
-            </div>
-            {/* If mobile, then render search last, in that case it will pop up to next line. */}
-            {isMobile && <Search/>}
-        </Toolbar>
+          <Toolbar className = {classes.toolbar}>
+            {/*  Hamburger Menu  */}
+            {isMobile &&
+              <IconButton
+                color = "inherit"
+                edge = "start"
+                style = {{outline : "none"}}
+                onClick = {() => setMobileOpen((previousMobileState) => (!previousMobileState))}
+                className = {classes.menuButton}
+              >
+                <Menu/>
+              </IconButton>
+            }
+            {/* Dark Mode && Light Mode Switch */}
+            <IconButton color="inherit" sx={{ml:1}}
+             onClick = {() => {}}>
+             {/* Brightness4 & Brightness 7 are Buttons */}
+              {theme.palette.mode === "dark" ? <Brightness4/> : <Brightness7 /> }
+             </IconButton>
+             {/* If not mobile, search in center or at last. */}
+             {!isMobile && <Search/>}
+              <div>
+              {/*
+                If not authenticated
+                Show login button
+                Else show
+                My Movies and a Profile Link
+              */}
+                {!isAuthenticated ? (
+                    <Button
+                      color = "inherit"
+                      onClick = {() => fetchToken()}
+                    >
+                      Login &nbsp; <AccountCircle/>
+                    </Button>
+                   )
+                  : (
+                    <Button
+                      color = "inherit"
+                      // Note the button is a Link
+                      component = {Link}
+                      to = {`/profile/${user.id}`}
+                      className = {classes.linkButton}
+                      onClick = {() => {}}
+                    >
+                      {!isMobile && <> My Movies &nbsp;</>}
+                      <Avatar
+                        style = {{width : 30, height : 30}}
+                        alt = "Profile"
+                        src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_kSSoomJ9hiFXmiF2RdZlwx72Y23XsT6iwQ&s"
+                      />
+                    </Button>
+                  )}
+              </div>
+              {/* If mobile, then render search last, in that case it will pop up to next line. */}
+              {isMobile && <Search/>}
+          </Toolbar>
       </AppBar>
+      <Offset />
       {/* For Side Bar */}
       <div>
         {/* Semantic Tag, we will use sidebar for navigation */}

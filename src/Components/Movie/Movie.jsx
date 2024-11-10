@@ -15,7 +15,7 @@ const Movie = ({movie,i}) => {
             src = {movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : `` }
           />
           { /* Dynamically Rendering a Movie Poster or Dummy Poster within src of Image */}
-          <Typography className = {classes.title} variant = "h5">
+          <Typography className = {classes.title} >
             {movie.title}
           </Typography>
           <Tooltip title={`${movie.vote_average.toFixed(2)} / 10`} disableInteractive>

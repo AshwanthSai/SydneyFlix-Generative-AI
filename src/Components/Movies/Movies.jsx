@@ -7,10 +7,8 @@ import { useSelector } from "react-redux";
 const Movies = () => {
   const [page, setPage] = useState(1)
   /* 
-    Reading from Global Store
-    Fetching just our needed slice from Store.
-    State here is the global store.
-    Returns Entire State Object.
+    UseSelector - Returns Entire State Object.
+          Fetching just our needed slice from Store.
   */
   const {genreIdOrCategoryName, searchQuery} = useSelector((state) => state.currentGenreOrCategory)
   const { data, error, isLoading } = useGetMoviesQuery(({genreIdOrCategoryName, page, searchQuery}));

@@ -35,7 +35,6 @@ export const tmdbApi = createApi({
           For Movie Lists on the basis of Genre
         */
         if(genre && typeof(genre) === "number") {
-          console.log("Called")
           return `discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genre}`;
         }
 
@@ -46,8 +45,11 @@ export const tmdbApi = createApi({
     getGenres: builder.query({
       query: () => `genre/movie/list?language=en`,
     }),
+    getMovieDetails: builder.query({
+      query: (id)=> `movie/${id}?language=en-US`,
+    }),
   }),
 });
 
 // Export hooks for usage in functional components
-export const { useGetMoviesQuery, useGetGenresQuery} = tmdbApi;
+export const { useGetMoviesQuery, useGetGenresQuery, useGetMovieDetailsQuery} = tmdbApi;

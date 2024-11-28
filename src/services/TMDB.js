@@ -46,7 +46,7 @@ export const tmdbApi = createApi({
       query: () => `genre/movie/list?language=en`,
     }),
     getMovieDetails: builder.query({
-      query: (id)=> `movie/${id}?language=en-US`,
+      query: (id)=> `movie/${id}?language=en-US&append_to_response=credits`,
     }),
   }),
 });

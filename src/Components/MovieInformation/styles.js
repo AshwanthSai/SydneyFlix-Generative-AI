@@ -1,6 +1,10 @@
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
+  /* 
+    These numbers here have come up after experimentation, 
+    Not patter matched.
+  */
   containerSpaceAround: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -48,10 +52,11 @@ export default makeStyles((theme) => ({
     width: '100%',
     maxWidth: '7em',
     height: '8em',
+    /* So the image is in the correct proportions */
     objectFit: 'cover',
     borderRadius: '10px',
   },
-  buttonContainer: {
+  buttonsContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',

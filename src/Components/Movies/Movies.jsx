@@ -3,9 +3,11 @@ import { useGetMoviesQuery } from "../../services/TMDB";
 import MovieList from "../MovieList/MovieList";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import useStyles from "./style.js"
 
 const Movies = () => {
   const [page, setPage] = useState(1)
+  const classes = useStyles();
   /* 
     UseSelector - Returns Entire State Object.
           Fetching just our needed slice from Store.
@@ -15,8 +17,8 @@ const Movies = () => {
 
   if(isLoading) {
     return(
-      <Box display = "flex" justifyContent = "center">
-        <CircularProgress size = "4rem"/>
+      <Box className={classes.centerScreen}>
+        <CircularProgress size = "7rem"/>
       </Box>
     )
   }

@@ -82,6 +82,6 @@ export default makeStyles((theme) => ({
     top: "50%",
     left: "55%",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
   },
 }));

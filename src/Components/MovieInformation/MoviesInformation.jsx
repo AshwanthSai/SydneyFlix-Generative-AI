@@ -2,8 +2,8 @@ import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Toolbar, Tool
 import Modal from '@mui/material/Modal';
 import {Link} from  "react-router-dom"
 import React, { useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { useGetMovieDetailsQuery } from "../../services/TMDB";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useGetMovieDetailsQuery, useGetMovieRecommendationsQuery} from "../../services/TMDB";
 import useStyles from "./styles"
 import genreIcons from "../../assets/genres"; 
 import { useDispatch } from "react-redux";
@@ -16,12 +16,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import RemoveIcon from '@mui/icons-material/Remove';
+import MovieList from "../MovieList/MovieList";
 
 const Movie = () => {
   const classes = useStyles()
   const {id} = useParams(); 
   const{data, error, isLoading} = useGetMovieDetailsQuery(id);
+  const{data: recommendations, error:isRecommendationsFetching, isLoading:isRecommendationsLoading} = useGetMovieRecommendationsQuery(id);
   const dispatch = useDispatch()
+  let history = useHistory();
+
   /* Modal, Youtube Video */
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -36,12 +41,10 @@ const Movie = () => {
   const addToWatchlist = () => {
 
   }
-
   if(isLoading) {
     return(
       <Box className={classes.centerScreen}>
           {/* To handle MUI Toolbar Bug */}
-        <Toolbar/>
         <CircularProgress size = "7rem"/>
       </Box>
     )
@@ -90,7 +93,7 @@ const Movie = () => {
             src={`https://image.tmdb.org/t/p/w300/${data.poster_path}`}
             alt={data?.title}
           />
-        </Grid>
+        </Grid> 
         <Grid item container direction="column" lg={7}>
           <Typography variant="h3" align="center" gutterBottom>
             {`${data?.title} (${data?.release_date.split("-")[0]})`}
@@ -175,16 +178,6 @@ const Movie = () => {
                   <Button target = "_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<LanguageIcon/>}>Website</Button>
                   <Button target = "_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data.imdb_id}/`} endIcon={<MovieIcon/>}>IMDB</Button>
                   <Button target = "_blank" rel="noopener noreferrer" href="" endIcon={<TheatersIcon/>} onClick = {handleOpen}> Trailer</Button>
-                    <Modal
-                        keepMounted
-                        open={open}
-                        onClose={handleClose}
-                    >
-                      <p style={{align:"center"}}>
-                      <iframe width="560" height="315" 
-                        src="https://www.youtube.com/embed/cKlsejIDcA8?si=uf8W4C5MzD_-LZMT"></iframe> 
-                      </p>
-                    </Modal>
                   </ButtonGroup>
                 </Grid>
                 <Grid item xs={12} sm={6} className = {classes.buttonsContainer}>
@@ -192,11 +185,11 @@ const Movie = () => {
                     <Button target = "_blank" onClick = {addToFavorites} endIcon={isMovieFavorited ? <FavoriteIcon/> : <FavoriteBorderIcon/>}>
                       {isMovieFavorited ? "Favorite" : "Unfavorite"}
                     </Button>
-                    <Button target = "_blank" onClick = {addToWatchlist} endIcon={isMovieWatchlisted ? <PlusOneIcon/> : null}>
+                    <Button target = "_blank" onClick = {addToWatchlist} endIcon={isMovieWatchlisted ? <PlusOneIcon/> : <RemoveIcon/>}>
                       {isMovieWatchlisted ? "Watchlist" : "Unwatchlist"}
                     </Button>
                     <Button target = "_blank" onClick = {addToWatchlist} endIcon={<ArrowBackIcon/>}>
-                        <Typography variant="subtitle2" component={Link} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
+                        <Typography variant="subtitle2" onClick = {() => history.goBack()} color="inherit" sx={{ textDecoration: 'none' }}>
                           Back
                         </Typography>
                     </Button>
@@ -206,6 +199,36 @@ const Movie = () => {
             </Grid>
         </Grid>
       </Grid>
+      {/* Box == Div that is easy to style */}
+      <Box marginTop = "5rem" width= "100%">
+          <Typography variant="h3" gutterBottom align="center">You might also like</Typography>
+          <div>
+            {recommendations && !isRecommendationsLoading ?
+             <MovieList movies ={recommendations} numberOfMovies="12" /> : 
+             (
+              <Box>
+                No Recommended Movies Found
+              </Box>
+             )
+            }
+          </div>
+      </Box>
+ {/*      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            autoPlay
+            className={classes.video}
+            title="Trailer"
+            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow="autoplay"
+          />
+        )}
+      </Modal> */}
      </>
   )};
 

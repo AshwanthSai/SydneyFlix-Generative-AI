@@ -3,7 +3,7 @@ import { Grid, Toolbar } from "@mui/material";
 import useStyles from "./styles";
 import Movie from "../Movie/Movie";
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, numberOfMovies }) => {
     const classes = useStyles()
     return (
         <>
@@ -11,7 +11,7 @@ const MovieList = ({ movies }) => {
              {/* MUI Toolbar Bug - Empty toolbar to start rendering after toolbar */}
             <Grid spacing={2.5} className={classes.moviesContainer}>
             {/* For Categories */}
-                {movies.results && (movies.results.map((movie,i) => (
+                {movies.results && (movies.results.slice(0,numberOfMovies).map((movie,i) => (
                     <Movie key={i} movie={movie} i={i} /> 
                 )))}
             </Grid>

@@ -42,14 +42,32 @@ export const tmdbApi = createApi({
         return `movie/popular?language=en-US&page=${page}`
       },
     }),
+    
     getGenres: builder.query({
       query: () => `genre/movie/list?language=en`,
     }),
+
     getMovieDetails: builder.query({
-      query: (id)=> `movie/${id}?language=en-US&append_to_response=credits`,
+      query: (id)=> `movie/${id}?language=en-US&append_to_response=videos,credits`,
     }),
+
+    getMovieRecommendations: builder.query({
+      query: (movie_id)=> `/movie/${movie_id}/recommendations`,
+    }),
+
+    getActorDetails: builder.query({
+      query: (actor_id)=> `/person/${actor_id}`,
+    }),
+
+    getMoviesByActor: builder.query({
+      query: (actor_id)=> `/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_cast=${actor_id}`,
+    }),
+
   }),
 });
 
 // Export hooks for usage in functional components
-export const { useGetMoviesQuery, useGetGenresQuery, useGetMovieDetailsQuery} = tmdbApi;
+export const { useGetMoviesQuery, useGetGenresQuery,
+               useGetMovieDetailsQuery, useGetMovieRecommendationsQuery,
+               useGetActorDetailsQuery, useGetMoviesByActorQuery
+} = tmdbApi;

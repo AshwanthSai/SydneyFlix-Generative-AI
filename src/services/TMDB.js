@@ -28,7 +28,6 @@ export const tmdbApi = createApi({
           For Movie Lists -> Upcoming, Top Rated or Popular
          */
         if(genre && typeof(genre)===  "string") {
-          console.log("Called")
           return `movie/${genre}?language=en-US&page=${page}`
         }
         /* 
@@ -52,15 +51,19 @@ export const tmdbApi = createApi({
     }),
 
     getMovieRecommendations: builder.query({
-      query: (movie_id)=> `/movie/${movie_id}/recommendations`,
+      //query: (movie_id, page) => `movie/${movie_id}/recommendations?language=en-US&page=${page}`, //1
+      query: ({movie_id, page}) => {
+        return `movie/${movie_id}/recommendations?language=en-US&page=${page}`}, // 2
     }),
 
     getActorDetails: builder.query({
-      query: (actor_id)=> `/person/${actor_id}`,
+      query: (actor_id)=> `/person/${actor_id}'`,
     }),
 
     getMoviesByActor: builder.query({
-      query: (actor_id)=> `/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_cast=${actor_id}`,
+      query: ({actor_id, page})=> {
+        return `discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_cast=${actor_id}`
+      }
     }),
 
   }),

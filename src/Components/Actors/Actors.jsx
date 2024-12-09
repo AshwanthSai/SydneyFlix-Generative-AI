@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, Grid, Toolbar, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useStyles from "./styles"
 import { useGetActorDetailsQuery, useGetMoviesByActorQuery } from "../../services/TMDB";
@@ -7,12 +7,14 @@ import { ArrowBack, CollectionsBookmarkOutlined } from "@mui/icons-material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useHistory } from "react-router-dom";
 import MovieList from "../MovieList/MovieList";
+import Pagination from "../Pagination/Pagination";
 
 const Actors = () => {
   const classes = useStyles()
   const {id} = useParams();
+  const [page, setPage] = useState(1)
   const {data, error, isLoading} = useGetActorDetailsQuery(id);
-  const {data : actorMovies, error : actorMoviesError, isLoading :actorMoviesIsLoading} = useGetMoviesByActorQuery(id);  
+  const {data : actorMovies, error : actorMoviesError, isLoading :actorMoviesIsLoading} = useGetMoviesByActorQuery({actor_id:id,page: page.toString()});
   let history = useHistory();
 
   if(isLoading) {
@@ -98,6 +100,7 @@ const Actors = () => {
               </Box>
              )
             }
+            <Pagination currentPage={page} setPage={setPage} totalPages = {actorMovies?.total_pages}/>
           </div>
     </Box>
   </>)

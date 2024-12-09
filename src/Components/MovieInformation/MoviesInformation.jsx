@@ -18,13 +18,14 @@ import PlusOneIcon from '@mui/icons-material/PlusOne';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RemoveIcon from '@mui/icons-material/Remove';
 import MovieList from "../MovieList/MovieList";
+import Pagination from "../Pagination/Pagination";
 
 const Movie = () => {
   const classes = useStyles()
   const {id} = useParams(); 
+  const [page, setPage] = useState(1)
   const{data, error, isLoading} = useGetMovieDetailsQuery(id);
-  const{data: recommendations, error:isRecommendationsFetching, isLoading:isRecommendationsLoading} = useGetMovieRecommendationsQuery(id);
-  const dispatch = useDispatch()
+  const{data: recommendations, error:isRecommendationsFetching, isLoading:isRecommendationsLoading} = useGetMovieRecommendationsQuery(({movie_id: id, page: page.toString()}));
   let history = useHistory();
 
   /* Modal, Youtube Video */
@@ -211,6 +212,7 @@ const Movie = () => {
               </Box>
              )
             }
+            <Pagination currentPage={page} setPage={setPage} totalPages={recommendations?.total_pages}/>
           </div>
       </Box>
  {/*      <Modal

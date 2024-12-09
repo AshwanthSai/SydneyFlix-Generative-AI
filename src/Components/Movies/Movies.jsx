@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetMoviesQuery } from "../../services/TMDB";
 import MovieList from "../MovieList/MovieList";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress,Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import useStyles from "./style.js"
+import Pagination from "../Pagination/Pagination.jsx";
 
 const Movies = () => {
   const [page, setPage] = useState(1)
@@ -14,7 +15,6 @@ const Movies = () => {
   */
   const {genreIdOrCategoryName, searchQuery} = useSelector((state) => state.currentGenreOrCategory)
   const { data, error, isLoading } = useGetMoviesQuery(({genreIdOrCategoryName, page, searchQuery}));
-
   if(isLoading) {
     return(
       <Box className={classes.centerScreen}>
@@ -41,9 +41,11 @@ const Movies = () => {
   if(error) return "An error has occurred"
   
   return (
-    <div>
+    <Box display="flex" alignItems="center" flexDirection="column">
       <MovieList movies ={data}/>
-    </div>
+      {/* Page to read values, setPage to write values. */}
+      <Pagination currentPage={page} setPage={setPage} totalPages = {data?.total_pages}/>
+    </Box>
   )
 };
 

@@ -48,12 +48,12 @@ export const tmdbApi = createApi({
 
     getMovieDetails: builder.query({
       query: (id)=> `movie/${id}?language=en-US&append_to_response=videos,credits`,
-    }),
+  }),
 
     getMovieRecommendations: builder.query({
       //query: (movie_id, page) => `movie/${movie_id}/recommendations?language=en-US&page=${page}`, //1
       query: ({movie_id, page}) => {
-        return `movie/${movie_id}/recommendations?language=en-US&page=${page}`}, // 2
+        return `movie/${movie_id}/recommendations?include_adult=false&language=en-US&page=${page}`}, // 2
     }),
 
     getActorDetails: builder.query({
@@ -66,11 +66,24 @@ export const tmdbApi = createApi({
       }
     }),
 
+    getWatchListedMovies: builder.query({
+      query: ({userID, page, session_id}) => {
+        return `account/${userID}/watchlist/movies?language=en-US&page=${page}&session_id=${session_id}&sort_by=created_at.asc`;
+      }
+    }),
+
+    getFavoriteMovies: builder.query({
+      query: ({userID, page, session_id})=> {
+        return `account/${userID}/favorite/movies?language=en-US&page=${page}&session_id=${session_id}&sort_by=created_at.asc`;
+      }
+    }),
+
   }),
 });
 
 // Export hooks for usage in functional components
 export const { useGetMoviesQuery, useGetGenresQuery,
                useGetMovieDetailsQuery, useGetMovieRecommendationsQuery,
-               useGetActorDetailsQuery, useGetMoviesByActorQuery
+               useGetActorDetailsQuery, useGetMoviesByActorQuery,
+               useGetWatchListedMoviesQuery, useGetFavoriteMoviesQuery
 } = tmdbApi;

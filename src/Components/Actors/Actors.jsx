@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Grid, Toolbar, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useStyles from "./styles"
@@ -8,20 +8,39 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useHistory } from "react-router-dom";
 import MovieList from "../MovieList/MovieList";
 import Pagination from "../Pagination/Pagination";
+import { useTheme } from "@emotion/react";
 
 const Actors = () => {
   const classes = useStyles()
   const {id} = useParams();
   const [page, setPage] = useState(1)
   const {data, error, isLoading} = useGetActorDetailsQuery(id);
+  const theme = useTheme();
   const {data : actorMovies, error : actorMoviesError, isLoading :actorMoviesIsLoading} = useGetMoviesByActorQuery({actor_id:id,page: page.toString()});
   let history = useHistory();
+  /* Slicing number of movies depending on screen size to prevent gap within list. */
+  const isXl = useMediaQuery(theme.breakpoints.up("xl"));
+  const isL = useMediaQuery(theme.breakpoints.up("lg"));
+  const isMd = useMediaQuery(theme.breakpoints.up("md"));
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
+  let numberOfMovies = 10; // Default value
+  if (isXl) {
+    numberOfMovies = 14;
+  } else if (isL) {
+    numberOfMovies = 12;
+  } else if (isMd) {
+    numberOfMovies = 12;
+  } else if(isSm) {
+    numberOfMovies = 10;
+  } 
+  
   if(isLoading) {
     return(
       <Box  className={classes.centerScreen}>
           {/* To handle MUI Toolbar Bug */}
-        <CircularProgress size = "8rem"/>
+        <CircularProgress size =
+         "8rem"/>
       </Box>
     )
   }
@@ -93,7 +112,7 @@ const Actors = () => {
       <Typography variant="h2" gutterBottom align="center">Movies</Typography>
       <div>
             {actorMovies && !actorMoviesIsLoading ?
-             <MovieList movies ={actorMovies} numberOfMovies="12" /> : 
+             <MovieList movies ={actorMovies} numberOfMovies={numberOfMovies} /> : 
              (
               <Box>
                 No Recommended Movies Found

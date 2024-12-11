@@ -1,79 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { userSelector } from "../../features/auth";
 import { useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
+import Pagination from "../Pagination/Pagination";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Button from '@mui/material/Button';
-
-const favouriteMovies = [
-  {
-      title: "The Great Adventure",
-      year: 2021,
-      genre: "Action",
-      rating: 8.5,
-  },
-  {
-      title: "Love in the Time of Quarantine",
-      year: 2020,
-      genre: "Romantic Comedy",
-      rating: 7.2,
-  },
-  {
-      title: "Mystery of the Lost Artifact",
-      year: 2019,
-      genre: "Mystery",
-      rating: 6.8,
-  },
-  {
-      title: "The Last Stand",
-      year: 2022,
-      genre: "Thriller",
-      rating: 9.0,
-  },
-  {
-      title: "Space Odyssey",
-      year: 2023,
-      genre: "Sci-Fi",
-      rating: 8.0,
-  },
-  {
-      title: "The Chef's Secret",
-      year: 2021,
-      genre: "Drama",
-      rating: 7.5,
-  },
-  {
-      title: "Underwater Explorers",
-      year: 2020,
-      genre: "Documentary",
-      rating: 8.3,
-  },
-  {
-      title: "The Enchanted Forest",
-      year: 2018,
-      genre: "Fantasy",
-      rating: 7.9,
-  },
-  {
-      title: "A Day in Paradise",
-      year: 2022,
-      genre: "Adventure",
-      rating: 8.1,
-  },
-  {
-      title: "Ghosts of the Past",
-      year: 2021,
-      genre: "Horror",
-      rating: 6.5,
-  },
-];
+import { useGetFavoriteMoviesQuery, useGetWatchListedMoviesQuery } from "../../services/TMDB";
+import RatedCards from "../RatedCards/RatedCards";
+import { Favorite } from "@mui/icons-material";
 
 const Profile = () => {
-  const {user :{username}} = useSelector(userSelector);
+  const {user :{username}} = useSelector(userSelector)
+  const accountID = localStorage.getItem("account_id")
+  const sessionID = localStorage.getItem("session_id")
+  
+  /* Pagination and API calls */
+  const[watchListPage, setWatchListPage] = useState("1")
+  const[favouritePage, setFavouritePage] = useState(1)
+  const{data: watchListMovies, refetch: refetchWatchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
+  const{data: favouriteMovies, refetch: refetchFavouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
+
+ useEffect(() => {
+    refetchWatchListMovies()
+    refetchFavouriteMovies()
+    console.log(watchListMovies)
+    console.log(favouriteMovies)
+  }, [watchListMovies, favouriteMovies]) 
+
   const logout = () => {
     localStorage.clear();
     window.location.href = "/"
   }
+
   return (
     <>
     {/* 
@@ -89,15 +47,28 @@ const Profile = () => {
           Logout &nbsp; <ExitToAppIcon/>
         </Button>
       </Box>   
-        {
-          !favouriteMovies.length ? (<Typography variant="h5">
-            Add Favorites or watch list some movies to see them here !
-           </Typography>) : (
-            <Box> FAVORITE MOVIES </Box>
-           )
-        }
-    </Box>
-  </>
+           {(favouriteMoviesLoading && !favouriteMovies?.results?.length) ? (
+              <Typography variant = "h5">Add favorite movies to see them here!</Typography>
+            ) : (
+              <>
+                <Box display="flex" flexWrap = "wrap" flexDirection = "column">
+                  <RatedCards title= "Favorite Movies" movies = {favouriteMovies}/>
+                </Box>
+              </>
+            )
+            } 
+            {(watchListMoviesLoading) ? (
+              <Typography variant = "h5">Watchlist movies to see them here!</Typography>
+            ) : (
+              <>
+                <Box display="flex" flexWrap = "wrap" flexDirection = "column">
+                  <RatedCards title= "Watchlist Movies" movies = {watchListMovies}/>
+                </Box>
+              </>
+            )
+            } 
+      </Box>
+    </>
   )
 };
 

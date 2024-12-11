@@ -5,9 +5,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import useStyles from "./style"
 import { useDispatch } from "react-redux";
 import {setSearchQuery} from "../../features/currentGenreOrCategory"
+import { useLocation } from 'react-router-dom';
 
 const Search = () => {
   const classes = useStyles();
+  const location = useLocation();
   const [query, setQuery] = useState(" ")
   const dispatch = useDispatch()
 
@@ -15,6 +17,10 @@ const Search = () => {
     if(e.key == "Enter"){
       dispatch(setSearchQuery(query))
     }
+  }
+
+  if(location.pathname !== "/"){
+    return null;
   }
 
   return (

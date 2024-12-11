@@ -19,7 +19,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUserData(state, action) {
-        console.log("Reducer Triggered")
         // User data received in the form of an Object 
         state.user = action.payload,
         state.isAuthenticated = true,

@@ -5,7 +5,7 @@ import { BrowserRouter} from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material';
 import { Provider } from 'react-redux'
 import {store} from "./app/store"
-
+import "./index.css"
 /* Creating our own theme */
 const theme = createTheme({})
 
@@ -15,7 +15,7 @@ ReactDOM.render(
     <Provider store={store}>
     <ThemeProvider theme = {theme}>
         <BrowserRouter>
-            <App />
+            <App className = "index"/>
         </BrowserRouter>
     </ThemeProvider>
     </Provider>,

@@ -1,9 +1,9 @@
-import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Toolbar, Tooltip, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material";
 import Modal from '@mui/material/Modal';
 import {Link} from  "react-router-dom"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { useGetMovieDetailsQuery, useGetMovieRecommendationsQuery} from "../../services/TMDB";
+import { useGetFavoriteMoviesQuery, useGetMovieDetailsQuery, useGetMovieRecommendationsQuery, useGetWatchListedMoviesQuery} from "../../services/TMDB";
 import useStyles from "./styles"
 import genreIcons from "../../assets/genres"; 
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import LanguageIcon from '@mui/icons-material/Language';
 import MovieIcon from '@mui/icons-material/Movie';
 import TheatersIcon from '@mui/icons-material/Theaters';
-import { TrendingUpOutlined } from "@mui/icons-material";
+import { MovieTwoTone, TrendingUpOutlined } from "@mui/icons-material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
@@ -19,29 +19,104 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RemoveIcon from '@mui/icons-material/Remove';
 import MovieList from "../MovieList/MovieList";
 import Pagination from "../Pagination/Pagination";
+import { useTheme } from "@emotion/react";
+import axios from "axios";
 
 const Movie = () => {
   const classes = useStyles()
+  const dispatch = useDispatch();
   const {id} = useParams(); 
   const [page, setPage] = useState(1)
   const{data, error, isLoading} = useGetMovieDetailsQuery(id);
-  const{data: recommendations, error:isRecommendationsFetching, isLoading:isRecommendationsLoading} = useGetMovieRecommendationsQuery(({movie_id: id, page: page.toString()}));
+  const{data: recommendations, error:recommendationsFetchingError, isLoading:isRecommendationsLoading} = useGetMovieRecommendationsQuery(({movie_id: id, page: page.toString()}));
+  const theme = useTheme();
   let history = useHistory();
+  /* Slicing number of movies depending on screen size to prevent gap within list. */
+  const isXl = useMediaQuery(theme.breakpoints.up("xl"));
+  const isL = useMediaQuery(theme.breakpoints.up("lg"));
+  const isMd = useMediaQuery(theme.breakpoints.up("md"));
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
+  let numberOfMovies = 10; // Default value
+  if (isXl) {
+    numberOfMovies = 14;
+  } else if (isL) {
+    numberOfMovies = 12;
+  } else if (isMd) {
+    numberOfMovies = 12;
+  } else if(isSm) {
+    numberOfMovies = 10;
+  } 
   /* Modal, Youtube Video */
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  /* Favorite or Un-favourited Icon & Text for Button */
-  const isMovieFavorited = false;
-  const isMovieWatchlisted = false;
   
-  const addToFavorites = () => {
+  /* Favorite or Un-favorite Icon & Text for Button */  
+  const [isMovieFavorited, setIsMovieFavorite] = useState("false");
+  const [isMovieWatchlisted,setIsMovieWatchlisted] = useState("false");
+  const accountID = localStorage.getItem("account_id")
+  const sessionID = localStorage.getItem("session_id")
+  const{data: watchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
+  const{data: favouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
-  } 
-  const addToWatchlist = () => {
+  console.log(favouriteMovies)
 
+  useEffect(() => {
+    setIsMovieFavorite(!!favouriteMovies?.results?.find((movie) => movie?.id == id));
+  }, [favouriteMovies, id]);
+
+  useEffect(() => {
+    setIsMovieWatchlisted(!!watchListMovies?.results?.find((movie) => movie?.id == id));
+  }, [watchListMovies, id]);
+
+  let config = {
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      // eslint-disable-next-line max-len
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MDk3ODY1MTkyMDI2N2IzNTFhMzNiNWQ1NTEzMWU2NSIsIm5iZiI6MTcyMzEyNTAzNi4yODE5OTk4LCJzdWIiOiI2NmI0Y2QyYzJkYzI4ZTQzNTk3YTlkYjAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-iLsD84ilg-j9ZYCXC1TNF-EdFcQ1LYUysE_dok5uCM'
+    }
   }
+
+  const addToFavorites = async () => {
+    try {
+      const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/favorite?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
+          "media_type": "movie",
+          "media_id": `${id}`,
+          "favorite": true
+      },config);
+
+      if (response.data.success === true) {
+        console.log('Successfully added to favorites:', response.data);
+      } else {
+        console.error('Failed to add to favorites:', response.data);
+      }
+    } catch (error) {
+      console.error('Error adding to favorites:', error);
+    }
+    setIsMovieFavorite((prev) => !prev)
+  };
+  
+  const addToWatchlist = async() => {
+    try {
+      const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/watchlist?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
+          "media_type": "movie",
+          "media_id": `${id}`,
+          "watchlist": true
+      },config);
+
+      if (response.data.success === true) {
+        console.log('Successfully added to watchlist:', response.data);
+      } else {
+        console.error('Failed to add to watchlist:', response.data);
+      }
+    } catch (error) {
+      console.error('Error adding to watchlist:', error);
+    }
+    setIsMovieWatchlisted((prev) => !prev)
+  }
+
   if(isLoading) {
     return(
       <Box className={classes.centerScreen}>
@@ -88,7 +163,7 @@ const Movie = () => {
         className={classes.containerSpaceAround}
       >
       {/* sm, lg are all essentially proportionality in the screen*/}
-        <Grid item sm={12} lg={4} align="center">
+        <Grid item sm={12} lg={4} align="center" style={{display:"flex", marginBottom:"30px"}}>
           <img 
             className = {classes.poster}
             src={`https://image.tmdb.org/t/p/w300/${data.poster_path}`}
@@ -109,8 +184,8 @@ const Movie = () => {
                     {data?.vote_average} / 10
                 </Typography>
               </Box>
-              <Typography gutterBottom variant="h5" align="center">
-                  {data?.runtime} min / {data?.spoken_languages[0].name}
+              <Typography gutterBottom variant="h6" align="center" >
+                {data?.runtime} min | Language: {data?.spoken_languages[0].name}
               </Typography>
             </Grid>
             <Grid item className={classes.genresContainer}>
@@ -205,7 +280,7 @@ const Movie = () => {
           <Typography variant="h3" gutterBottom align="center">You might also like</Typography>
           <div>
             {recommendations && !isRecommendationsLoading ?
-             <MovieList movies ={recommendations} numberOfMovies="12" /> : 
+             <MovieList movies ={recommendations} numberOfMovies={numberOfMovies} /> : 
              (
               <Box>
                 No Recommended Movies Found

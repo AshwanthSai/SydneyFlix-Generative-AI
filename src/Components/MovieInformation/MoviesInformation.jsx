@@ -60,8 +60,6 @@ const Movie = () => {
   const{data: watchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
   const{data: favouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
-  console.log(favouriteMovies)
-
   useEffect(() => {
     setIsMovieFavorite(!!favouriteMovies?.results?.find((movie) => movie?.id == id));
   }, [favouriteMovies, id]);

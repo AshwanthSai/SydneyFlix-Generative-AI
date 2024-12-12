@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useRef } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import {Switch,Route,Link} from "react-router-dom";
 import {Actors, Movies, MoviesInformation, NavBar, Profile} from "./Components/index.js"
 import useStyles from "./styles"
 import { Provider } from 'react-redux'
+import useAlan from "./Components/Alan.jsx";
 
 export const App = () => {
   /* Returns an Object with Classnames as key and properties as values. */
   const classes = useStyles();
+  const alanBtnContainer = useRef();
+  
+  //Runs the useEffect hook within the useAlan hook on App Mount
+  useAlan();
   return (
     <React.Fragment>
     {/* Attaching class from classes object */}
@@ -37,6 +42,7 @@ export const App = () => {
             </Switch>
           </div>
         </main>
+        <div ref ={alanBtnContainer} />
       </div>
     </React.Fragment>
   )

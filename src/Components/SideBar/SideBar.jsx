@@ -51,7 +51,7 @@ const SideBar = ({setMobileOpen}) => {
                     <ListItemButton component="a" href="#simple-list">
                         <ListItemIcon>
                         <img 
-                            className={classes.image}
+                            className={classes.genreImages}
                             src = {genreIcons[value.toLowerCase()]}     
                             style={{ height: "20px", width: "20px" }} // Corrected style prop
                         />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {AppBar, IconButton, Toolbar, Drawer, Button, Avatar, Box, styled} from "@mui/material"
 import {Menu, AccountCircle, Brightness4, Brightness7} from "@mui/icons-material"
 import {Link} from "react-router-dom"
@@ -11,7 +11,7 @@ import { fetchSessionID, fetchToken, moviesApi } from "../../utils/fetchToken.js
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData} from "../../features/auth.js";
 import {userSelector} from "../../features/auth.js";
-
+import {ColorModeContext} from "../../utils/ToggleColorMode"
 /* 
   Nav Bar
     > Tool Bar
@@ -19,6 +19,7 @@ import {userSelector} from "../../features/auth.js";
 */
 
 const NavBar = () => {
+  const {toggleColorMode} = useContext(ColorModeContext);
   const classes = useStyles();
   /* Anything above 600px is not Mobile */
   const isMobile = useMediaQuery('(max-width:600px)');
@@ -85,7 +86,7 @@ const NavBar = () => {
             }
             {/* Dark Mode && Light Mode Switch */}
             <IconButton color="inherit" sx={{ml:1}}
-             onClick = {() => {}}>
+             onClick = {toggleColorMode}>
              {/* Brightness4 & Brightness 7 are Buttons */}
               {theme.palette.mode === "dark" ? <Brightness4/> : <Brightness7 /> }
              </IconButton>

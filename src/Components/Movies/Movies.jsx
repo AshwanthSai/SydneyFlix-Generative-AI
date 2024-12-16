@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import useStyles from "./style.js"
 import Pagination from "../Pagination/Pagination.jsx";
 import { useTheme } from "@emotion/react";
+import FeaturedMovie from "../FeaturedMovie/FeaturedMovie.jsx";
 
 const Movies = () => {
   const [page, setPage] = useState(1)
@@ -62,6 +63,7 @@ const Movies = () => {
   
   return (
     <Box display="flex" alignItems="center" flexDirection="column">
+      <FeaturedMovie movie={data.results} />
       <MovieList movies ={data} numberOfMovies = {numberOfMovies}/>
       {/* Page to read values, setPage to write values. */}
       <Pagination currentPage={page} setPage={setPage} totalPages = {data?.total_pages}/>

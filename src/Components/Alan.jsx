@@ -10,12 +10,18 @@ const useAlan = () => {
     // useEffect(() => {console.log(command)}, [command])
     useEffect(() => {
         alanBtn({
-            key: '1ec889d4ad228647f67abd4d7f8ac7cb2e956eca572e1d8b807a3e2338fdd0dc/stage',
+            key: "1ec889d4ad228647f67abd4d7f8ac7cb2e956eca572e1d8b807a3e2338fdd0dc/stage",
             host: 'v1.alan.app',
-            onCommand: (commandData) => {
-                console.info("This is -> ", commandData) 
+            onConnectionStatus: function(status) {
+              console.log("The status is " + status);
+            },          
+            onCommand: function(commandData){
+                alert("This is -> ", commandData) 
+                if (commandData.command === 'test') {
+                  alert("Test", commandData)
+                }
                 if (commandData.command === 'go:back') {
-                    console.info(commandData) 
+                  alert("This is -> ", commandData)
                 }
             }, 
             onEvent: function (e) {

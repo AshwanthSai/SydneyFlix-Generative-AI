@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useGetFavoriteMoviesQuery, useGetMovieDetailsQuery, useGetMovieRecommendationsQuery, useGetWatchListedMoviesQuery} from "../../services/TMDB";
 import useStyles from "./styles"
-import genreIcons from "../../assets/genres"; 
+import genreIcons from "../../Assets/genres"; 
 import { useDispatch } from "react-redux";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import LanguageIcon from '@mui/icons-material/Language';

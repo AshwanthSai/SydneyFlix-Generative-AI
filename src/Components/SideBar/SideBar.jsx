@@ -3,8 +3,8 @@ import {Divider, List, ListItem,ListItemButton, ListItemText, ListSubheader, Lis
 import {Link} from  "react-router-dom"
 import useStyles from "./Sidebar"
 import useTheme from "@mui/material/styles/useTheme";
-import Blue from "../../assets/Blue.png"
-import Red from "../../assets/Red.png"
+import Blue from "../../Assets/Blue.png"
+import Red from "../../Assets/Red.png"
 import { useGetGenresQuery } from "../../services/TMDB";
 import {selectGenreOrCategory} from "../../features/currentGenreOrCategory"
 
@@ -12,7 +12,7 @@ import {selectGenreOrCategory} from "../../features/currentGenreOrCategory"
   If you do this, it automatically pulls from index.js
   an Object in this case.
 */
-import genreIcons from "../../assets/genres"; 
+import genreIcons from "../../Assets/genres"; 
 import { useDispatch, useSelector } from "react-redux";
 
 const categories = [

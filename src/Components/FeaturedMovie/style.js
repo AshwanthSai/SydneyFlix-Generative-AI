@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles((theme) => ({
     // Total Container 
     featuredCardContainer: {
+        marginTop: "35px",
         marginBottom: '20px',
         display: 'flex',
         justifyContent: 'center',

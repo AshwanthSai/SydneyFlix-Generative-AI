@@ -8,7 +8,6 @@ const MovieList = ({ movies, numberOfMovies, excludeFirst }) => {
     const classes = useStyles()
     return (
         <>
-            {/* <Toolbar/> */}
              {/* MUI Toolbar Bug - Empty toolbar to start rendering after toolbar */}
             <Grid spacing={2.5} className={classes.moviesContainer}>
             {/* For Categories */}

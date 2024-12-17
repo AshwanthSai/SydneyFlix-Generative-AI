@@ -44,6 +44,6 @@ export default {
   western,
 
   popular,
-  'top_rated': topRated,
+  'top rated': topRated,
   upcoming,
 };

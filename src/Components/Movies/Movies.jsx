@@ -44,7 +44,7 @@ const Movies = () => {
   if(isLoading) {
     return(
       <Box className={classes.centerScreen}>
-        <CircularProgress size = "7rem"/>
+        <CircularProgress size = "4rem"/>
       </Box>
     )
   }
@@ -64,16 +64,16 @@ const Movies = () => {
     )
   }
 
-  if(error) return "An error has occurred"
+  if(error) return "An error has occured"
   
   return (
-    <Box display="flex" alignItems="center" flexDirection="column">
-      <Toolbar/> // {/* Fixes MUI Toolbar Bug */}
-      <FeaturedMovie movie={data.results[0]} />
-      <MovieList movies ={data} numberOfMovies = {numberOfMovies}/>
+    <div className={classes.parentdiv}>
+      {/* <Toolbar/>  Fixes MUI Toolbar Bug */}
+      <FeaturedMovie className = {classes.childElement} movie={data.results[0]} />
+      <MovieList className = {classes.childElement} movies ={data} numberOfMovies = {numberOfMovies}/>
       {/* Page to read values, setPage to write values. */}
-      <Pagination currentPage={page} setPage={setPage} totalPages = {data?.total_pages}/>
-    </Box>
+      <Pagination className = {classes.childElement} currentPage={page} setPage={setPage} totalPages = {data?.total_pages}/>
+    </div>
   )
 };
 

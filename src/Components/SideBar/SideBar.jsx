@@ -24,9 +24,10 @@ const categories = [
 
 const SideBar = ({setMobileOpen}) => {
   const theme = useTheme();
-  const classes = useStyles();
+  const classes = useStyles()
   const {data, isFetching} = useGetGenresQuery()
   const dispatch = useDispatch()
+
 
   return (
     <>
@@ -39,58 +40,37 @@ const SideBar = ({setMobileOpen}) => {
       </Link>
 
       <Divider/>
-      <List
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Categories
-          </ListSubheader>
-        }
-      >
-        {categories.map(({label, value}) => {
-          return (<ListItem onClick = {() =>{(dispatch(selectGenreOrCategory(value)))}}  key ={value}>
-                    <ListItemButton component="a" href="#simple-list">
-                        <ListItemIcon>
-                        <img 
-                            className={classes.genreImages}
-                            src = {genreIcons[value.toLowerCase()]}     
-                            style={{ height: "20px", width: "20px" }} // Corrected style prop
-                        />
-                        </ListItemIcon>
-                      <ListItemText primary={label} />
-                    </ListItemButton>
-                  </ListItem>)
-        })}
+      <List>
+        <ListSubheader>Categories</ListSubheader>
+        {categories.map(({ label, value }) => (
+          <Link key={value} className={classes.links} to="/">
+            <ListItem button onClick={() => dispatch(selectGenreOrCategory(value))}>
+              <ListItemIcon>
+                <img src={genreIcons[label.toLowerCase()]} className={classes.genreImages} height={30} />
+              </ListItemIcon>
+              <ListItemText primary={label} />
+            </ListItem>
+          </Link>
+        ))}
       </List>
       <Divider/>
-      <List
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Genres
-          </ListSubheader>
-        }
-      >
-      {isFetching ? (
-        <Box display="flex" justifyContent="center">
-        <CircularProgress size="4rem" />
-        </Box>
-      ) : 
-        (data.genres.map(({id, name}) => {
-          return (
-            <ListItem id onClick = {() =>{dispatch(selectGenreOrCategory(id))}} key ={id}>
-                    <ListItemButton component="a" href="#simple-list">
-                        <ListItemIcon>
-                        <img 
-                            className={classes.genreImages}
-                            src = {genreIcons[name.toLowerCase()]}      
-                            style={{ height: "20px", width: "20px" }} // Corrected style prop
-                        />
-                        </ListItemIcon>
-                      <ListItemText primary={name} />
-                    </ListItemButton>
-            </ListItem>
-          )
-        }))
-      }
+      <List>
+        <ListSubheader>Genres</ListSubheader>
+        {isFetching ? (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress size="4rem" />
+          </Box>
+        )
+          : data?.genres?.map(({ name, id }) => (
+            <Link key={name} className={classes.links} to="/">
+              <ListItem button onClick={() => dispatch(selectGenreOrCategory(id))}>
+                <ListItemIcon>
+                  <img src={genreIcons[name.toLowerCase()]} className={classes.genreImages} height={30} />
+                </ListItemIcon>
+                <ListItemText primary={name} />
+              </ListItem>
+            </Link>
+          ))}
       </List>
     </>
   )

@@ -2,18 +2,25 @@ import { makeStyles } from "@mui/styles";
 
 /* App Level Style */
 export default makeStyles((theme) => ({
-    imageLink: {
-        display: 'flex',
-        justifyContent: 'center',
-        padding: '10% 0',
-      },
-      image: {
-        height:"100%",
-        width: '100%',
-        padding : "0"
-      },
-    genreImages : {
-      filter : theme.palette.mode === "dark" && "invert(1)"
-    }     
-}))
+  imageLink: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '10% 0',
+  },
+  image: {
+    width: '95%',
+    height:"95%",
+  },
+    links: {
+      color: theme.palette.text.primary,
+      textDecoration: 'none',
+    },
+    genreImages: {
+      filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'dark',
+    },
+    bigText: {
+      color: 'primary',
+      fontSize: 30,
+    },
+  }));
 

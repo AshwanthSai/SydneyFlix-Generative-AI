@@ -29,6 +29,8 @@ const NavBar = () => {
   const theme = useTheme();
   const token = localStorage.getItem("token")
   const sessionIdFromLocalStorage = localStorage.getItem("session_id"); 
+  const {genreIdOrCategoryName} = useSelector(store => store.currentGenreOrCategory)
+  
   const dispatch = useDispatch();
   /* Aux for login button, User.id to redirect to profile page. */
   const {isAuthenticated, user} = useSelector(userSelector)
@@ -62,6 +64,11 @@ const NavBar = () => {
       };
       loginUser();
     }, [token, sessionIdFromLocalStorage]); 
+
+    
+  useEffect(()=> {
+    setMobileOpen(false)
+  }, [user, genreIdOrCategoryName])
 
   return (
     <>
@@ -120,7 +127,7 @@ const NavBar = () => {
                       <Avatar
                         style = {{width : 30, height : 30}}
                         alt = "Profile"
-                        src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_kSSoomJ9hiFXmiF2RdZlwx72Y23XsT6iwQ&s"
+                        src = {`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar?.avatar_path}`}
                       />
                     </Button>
                   )}

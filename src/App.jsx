@@ -9,7 +9,7 @@ import useAlan from "./Components/Alan.jsx";
 export const App = () => {
   /* Returns an Object with Classnames as key and properties as values. */
   const classes = useStyles();
-  const alanBtnContainer = useRef();
+  const alanBtnContainer = useRef(); //* Creating a Ref 
   
   //Runs the useEffect hook within the useAlan hook on App Mount
   useAlan();
@@ -42,7 +42,7 @@ export const App = () => {
             </Switch>
           </div>
         </main>
-        <div ref ={alanBtnContainer} />
+        <div ref ={alanBtnContainer} /> //*Attaching ref to div
       </div>
     </React.Fragment>
   )

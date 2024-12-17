@@ -20,20 +20,24 @@ export default makeStyles((theme) => ({
       cardRoot: {
         position: 'relative',
       },
+      //* Add an outer div to the image
       cardMedia: {
         position: 'absolute',
         top: 0,
         right: 0,
         height: '100%',
         width: '100%',
-        backgroundColor: 'rgba(0,0,0,0.575)',
+        //*Add an opaque background color
+        backgroundColor: 'rgba(0,0,0,0.575)', 
+        //*The darken mode will darken the colors 
+        //* of the background image where the background color is applied.
         backgroundBlendMode: 'darken',
       },
       cardContent: {
-        color: '#fff',
-        width: '40%',
+        color: '#fff', // White
+        width: '40%', // 40% Width of Featured Container
         [theme.breakpoints.down('sm')]: {
-          width: '100%',
+          width: '100%',// Small screen, increase width to 100%.
         },
       },
       cardContentRoot: {

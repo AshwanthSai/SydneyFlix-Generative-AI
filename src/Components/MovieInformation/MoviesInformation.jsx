@@ -11,7 +11,7 @@ import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import LanguageIcon from '@mui/icons-material/Language';
 import MovieIcon from '@mui/icons-material/Movie';
 import TheatersIcon from '@mui/icons-material/Theaters';
-import { MovieTwoTone, TrendingUpOutlined } from "@mui/icons-material";
+import { ArrowBack, Favorite, FavoriteBorderOutlined, MovieTwoTone, PlusOne, Remove, TrendingUpOutlined } from "@mui/icons-material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
@@ -37,16 +37,7 @@ const Movie = () => {
   const isMd = useMediaQuery(theme.breakpoints.up("md"));
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
-  let numberOfMovies = 10; // Default value
-  if (isXl) {
-    numberOfMovies = 14;
-  } else if (isL) {
-    numberOfMovies = 12;
-  } else if (isMd) {
-    numberOfMovies = 12;
-  } else if(isSm) {
-    numberOfMovies = 10;
-  } 
+
   /* Modal, Youtube Video */
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -61,10 +52,12 @@ const Movie = () => {
   const{data: favouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
   useEffect(() => {
+    console.log(!!favouriteMovies?.results?.find((movie) => movie?.id == id))
     setIsMovieFavorite(!!favouriteMovies?.results?.find((movie) => movie?.id == id));
   }, [favouriteMovies, id]);
 
   useEffect(() => {
+    console.log(!!watchListMovies?.results?.find((movie) => movie?.id == id))
     setIsMovieWatchlisted(!!watchListMovies?.results?.find((movie) => movie?.id == id));
   }, [watchListMovies, id]);
 
@@ -77,18 +70,22 @@ const Movie = () => {
     }
   }
 
-  const addToFavorites = async () => {
+  const addToFavorites = async (status) => {
     try {
       const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/favorite?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
           "media_type": "movie",
           "media_id": `${id}`,
-          "favorite": true
+          "favorite": !status
       },config);
 
       if (response.data.success === true) {
-        console.log('Successfully added to favorites:', response.data);
+        if(status) {
+          console.log('Successfully added to favorites:', response.data);
+        } else {
+          console.log('Successfully removed from favorites:', response.data);
+        }
       } else {
-        console.error('Failed to add to favorites:', response.data);
+        ('Failed to add to favorites:', response.data);
       }
     } catch (error) {
       console.error('Error adding to favorites:', error);
@@ -96,16 +93,20 @@ const Movie = () => {
     setIsMovieFavorite((prev) => !prev)
   };
   
-  const addToWatchlist = async() => {
+  const addToWatchlist = async(status) => {
     try {
       const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/watchlist?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
           "media_type": "movie",
           "media_id": `${id}`,
-          "watchlist": true
+          "watchlist": !status
       },config);
 
       if (response.data.success === true) {
-        console.log('Successfully added to watchlist:', response.data);
+        if(status) {
+          console.log('Successfully added to Watchlist:', response.data);
+        } else {
+          console.log('Successfully removed from Watchlist:', response.data);
+        }
       } else {
         console.error('Failed to add to watchlist:', response.data);
       }
@@ -182,8 +183,9 @@ const Movie = () => {
                     {data?.vote_average} / 10
                 </Typography>
               </Box>
-              <Typography gutterBottom variant="h6" align="center" >
-                {data?.runtime} min | Language: {data?.spoken_languages[0].name}
+              <Typography sx={{ fontWeight: "normal" }}  gutterBottom variant="h6" align="center" >
+              {console.log(data?.release_date)}
+                {data?.runtime}min / {new Date(data?.release_date).toLocaleString('default', { month: 'long' })} {data?.release_date.split("-")[0]}  / {data?.spoken_languages[0].name}
               </Typography>
             </Grid>
             <Grid item className={classes.genresContainer}>
@@ -247,27 +249,28 @@ const Movie = () => {
               <div className = {classes.buttonsContainer}>
                 {/* Each Group */}
                 <Grid item xs={12} sm={6} className = {classes.buttonsContainer}>
-                  <ButtonGroup size="small" variant="outlined">
+                  <ButtonGroup size="large" variant="outlined">
                   {/* If you {} a text attribute, it returns a text attribute */}
-                  <Button target = "_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<LanguageIcon/>}>Website</Button>
+                  <Button target = "_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<LanguageIcon/>}>Website
+                  </Button>
                   <Button target = "_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data.imdb_id}/`} endIcon={<MovieIcon/>}>IMDB</Button>
                   <Button target = "_blank" rel="noopener noreferrer" href="" endIcon={<TheatersIcon/>} onClick = {handleOpen}> Trailer</Button>
                   </ButtonGroup>
                 </Grid>
                 <Grid item xs={12} sm={6} className = {classes.buttonsContainer}>
-                  <ButtonGroup size="small" variant="outlined">
-                    <Button target = "_blank" onClick = {addToFavorites} endIcon={isMovieFavorited ? <FavoriteIcon/> : <FavoriteBorderIcon/>}>
-                      {isMovieFavorited ? "Favorite" : "Unfavorite"}
-                    </Button>
-                    <Button target = "_blank" onClick = {addToWatchlist} endIcon={isMovieWatchlisted ? <PlusOneIcon/> : <RemoveIcon/>}>
-                      {isMovieWatchlisted ? "Watchlist" : "Unwatchlist"}
-                    </Button>
-                    <Button target = "_blank" onClick = {addToWatchlist} endIcon={<ArrowBackIcon/>}>
-                        <Typography variant="subtitle2" onClick = {() => history.goBack()} color="inherit" sx={{ textDecoration: 'none' }}>
-                          Back
-                        </Typography>
-                    </Button>
-                  </ButtonGroup>
+                <ButtonGroup size="large" variant="outlined">
+                <Button onClick={() => addToFavorites(isMovieFavorited)} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
+                  {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
+                  </Button>
+                  <Button onClick={() => addToWatchlist(isMovieWatchlisted)} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
+                    Watchlist
+                  </Button>
+                  <Button endIcon={<ArrowBack />} sx={{ borderColor: 'primary.main' }}>
+                    <Typography variant="subtitle2" component={Link} to="/" color="inherit" sx={{ textDecoration: 'none' }}>
+                      Back
+                    </Typography>
+                  </Button>
+                </ButtonGroup>
                 </Grid>
               </div>
             </Grid>
@@ -278,7 +281,7 @@ const Movie = () => {
           <Typography variant="h3" gutterBottom align="center">You might also like</Typography>
           <div>
             {recommendations && !isRecommendationsLoading ?
-             <MovieList movies ={recommendations} numberOfMovies={numberOfMovies} /> : 
+             <MovieList movies ={recommendations} numberOfMovies={12} /> : 
              (
               <Box>
                 No Recommended Movies Found
@@ -288,7 +291,7 @@ const Movie = () => {
             <Pagination currentPage={page} setPage={setPage} totalPages={recommendations?.total_pages}/>
           </div>
       </Box>
- {/*      <Modal
+      <Modal
         closeAfterTransition
         className={classes.modal}
         open={open}
@@ -298,12 +301,13 @@ const Movie = () => {
           <iframe
             autoPlay
             className={classes.video}
+            frameBorder="0"
             title="Trailer"
             src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
             allow="autoplay"
           />
         )}
-      </Modal> */}
+      </Modal>
      </>
   )};
 

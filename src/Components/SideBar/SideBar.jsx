@@ -6,7 +6,7 @@ import useTheme from "@mui/material/styles/useTheme";
 import Blue from "../../Assets/Blue.png"
 import Red from "../../Assets/Red.png"
 import { useGetGenresQuery } from "../../services/TMDB";
-import {selectGenreOrCategory} from "../../features/currentGenreOrCategory"
+import {selectGenreOrCategory, setSearchQuery} from "../../features/currentGenreOrCategory"
 
 /* 
   If you do this, it automatically pulls from index.js
@@ -28,7 +28,6 @@ const SideBar = ({setMobileOpen}) => {
   const {data, isFetching} = useGetGenresQuery()
   const dispatch = useDispatch()
 
-
   return (
     <>
       {/* Logo Link*/}
@@ -44,7 +43,9 @@ const SideBar = ({setMobileOpen}) => {
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
           <Link key={value} className={classes.links} to="/">
-            <ListItem button onClick={() => dispatch(selectGenreOrCategory(value))}>
+            <ListItem button onClick={() => {
+                dispatch(selectGenreOrCategory(value))
+            }}>
               <ListItemIcon>
                 <img src={genreIcons[label.toLowerCase()]} className={classes.genreImages} height={30} />
               </ListItemIcon>
@@ -63,7 +64,10 @@ const SideBar = ({setMobileOpen}) => {
         )
           : data?.genres?.map(({ name, id }) => (
             <Link key={name} className={classes.links} to="/">
-              <ListItem button onClick={() => dispatch(selectGenreOrCategory(id))}>
+              <ListItem button onClick={() => {
+                dispatch(selectGenreOrCategory(id))
+                }
+              }>
                 <ListItemIcon>
                   <img src={genreIcons[name.toLowerCase()]} className={classes.genreImages} height={30} />
                 </ListItemIcon>

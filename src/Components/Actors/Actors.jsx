@@ -24,16 +24,6 @@ const Actors = () => {
   const isMd = useMediaQuery(theme.breakpoints.up("md"));
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
-  let numberOfMovies = 10; // Default value
-  if (isXl) {
-    numberOfMovies = 14;
-  } else if (isL) {
-    numberOfMovies = 12;
-  } else if (isMd) {
-    numberOfMovies = 12;
-  } else if(isSm) {
-    numberOfMovies = 10;
-  } 
   
   if(isLoading) {
     return(
@@ -112,7 +102,7 @@ const Actors = () => {
       <Typography variant="h2" gutterBottom align="center">Movies</Typography>
       <div>
             {actorMovies && !actorMoviesIsLoading ?
-             <MovieList movies ={actorMovies} numberOfMovies={numberOfMovies} /> : 
+             <MovieList movies ={actorMovies} numberOfMovies={12} /> : 
              (
               <Box>
                 No Recommended Movies Found

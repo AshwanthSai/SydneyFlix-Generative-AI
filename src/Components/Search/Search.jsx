@@ -19,6 +19,7 @@ const Search = () => {
     }
   }
 
+  /* If not homepage, do not show Search */
   if(location.pathname !== "/"){
     return null;
   }

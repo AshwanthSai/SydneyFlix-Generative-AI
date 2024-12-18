@@ -3,8 +3,7 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles((theme) => ({
     // Total Container 
     featuredCardContainer: {
-        marginTop: "35px",
-        marginBottom: '20px',
+        margin: "65px 5px 20px 5px",
         display: 'flex',
         justifyContent: 'center',
         height: '490px',
@@ -16,6 +15,7 @@ export default makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-end',
         flexDirection: 'column',
+        flex: "1",
       },
       // Primary Position
       cardRoot: {

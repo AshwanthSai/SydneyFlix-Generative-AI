@@ -5,6 +5,7 @@ import {Actors, Movies, MoviesInformation, NavBar, Profile} from "./Components/i
 import useStyles from "./styles"
 import { Provider } from 'react-redux'
 import useAlan from "./Components/Alan.jsx";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min.js";
 
 export const App = () => {
   /* Returns an Object with Classnames as key and properties as values. */
@@ -39,6 +40,7 @@ export const App = () => {
                 <Route exact path="/profile/:id">
                   <Profile/>
                 </Route>
+                <Redirect to="/" />
             </Switch>
           </div>
         </main>

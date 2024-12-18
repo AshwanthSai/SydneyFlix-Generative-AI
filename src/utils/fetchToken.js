@@ -1,5 +1,9 @@
 import axios from "axios"
 
+/*
+    Aux Functions for Login, Log Out
+*/
+
 export const moviesApi = axios.create({
     baseURL: `https://api.themoviedb.org/3/`,
     headers: {
@@ -40,5 +44,10 @@ export const fetchSessionID = async() => {
     } catch(error) {    
         console.log("Could not fetch Session ID", error)
     }
+}
+
+export const logOut = () => {
+    localStorage.clear()
+    window.location.reload();
 }
  

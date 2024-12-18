@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 /* 
+  Slice for Auth Data
+*/
+
+
+/* 
   We have two sources of truth for Auth Data
   Both Local Storage and Redux Store
   isAuthenticated is native to only redux store.

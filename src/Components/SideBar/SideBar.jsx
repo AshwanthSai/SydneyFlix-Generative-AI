@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import {Divider, List, ListItem,ListItemButton, ListItemText, ListSubheader, ListItemIcon, Box, CircularProgress} from "@mui/material"
+import React from "react";
+import {Divider, List, ListItem, ListItemText, ListSubheader, ListItemIcon, Box, CircularProgress} from "@mui/material"
 import {Link} from  "react-router-dom"
 import useStyles from "./Sidebar"
 import useTheme from "@mui/material/styles/useTheme";
 import Blue from "../../Assets/Blue.png"
 import Red from "../../Assets/Red.png"
 import { useGetGenresQuery } from "../../services/TMDB";
-import {selectGenreOrCategory, setSearchQuery} from "../../features/currentGenreOrCategory"
+import {selectGenreOrCategory} from "../../features/currentGenreOrCategory"
 
 /* 
   If you do this, it automatically pulls from index.js
   an Object in this case.
 */
 import genreIcons from "../../Assets/genres"; 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 
 const categories = [
   /* Value to send to API */
@@ -31,7 +31,7 @@ const SideBar = ({setMobileOpen}) => {
   return (
     <>
       {/* Logo Link*/}
-      <Link to="/" className = {classes.imageLink}>
+      <Link to="/" onClick = {() => {dispatch(selectGenreOrCategory(""))}}className = {classes.imageLink}>
         <img 
           className={classes.image}
           src={theme.palette.mode === "light" ? Blue : Red}     

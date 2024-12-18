@@ -2,11 +2,16 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import React, { createContext, useMemo, useState } from "react";
 
 /* 
+  The below is essentially a passthrough Parent Prop, to provide 
+  Light or Dark Mode, Global Context to Entire App.
+*/
+
+
+/* 
     You have to export the context, to Subscribe or Write to it
     Like useDispatch or useSelector
 */
 export const ColorModeContext = createContext()
-
 const ToggleColorMode = ({children}) => {
     const[mode, setMode] = useState("light")
     const toggleColorMode = () => {

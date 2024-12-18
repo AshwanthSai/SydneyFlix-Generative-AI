@@ -18,6 +18,13 @@ export default makeStyles(() => ({
         flexGrow : 1, 
         padding : "2em",
         width:"100%"
+    },
+    centerScreen: {
+      position: "absolute",
+      top: "50%",
+      left: "55%",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
     }
 }))
 

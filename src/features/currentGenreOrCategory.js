@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
+/* 
+    Slice for Category or Genre Selection 
+*/
+
+
 /* 
   Entire store is made up of Individual Slices
   Slice = Means to group related data 

@@ -21,10 +21,9 @@ const Profile = () => {
   const{data: favouriteMovies, refetch: refetchFavouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
  useEffect(() => {
+    /* Refetch on Component Mount */
     refetchWatchListMovies()
     refetchFavouriteMovies()
-    console.log(watchListMovies)
-    console.log(favouriteMovies)
   }, [watchListMovies, favouriteMovies]) 
 
   const logout = () => {

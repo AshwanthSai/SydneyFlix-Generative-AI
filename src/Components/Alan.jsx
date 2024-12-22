@@ -15,15 +15,16 @@ const useAlan = () => {
     const {mode, setMode} = useContext(ColorModeContext);
     const history = useHistory();
     const dispatch = useDispatch();
+    const accountID = localStorage.getItem("account_id")
     // useEffect(() => {console.log(command)}, [command])
     useEffect(() => {
         alanBtn({
             key: process.env.REACT_APP_ALAN_KEY,
             host: 'v1.alan.app',
-            onConnectionStatus: function(status) {
+            onConnectionStatus: function(status, ) {
               console.log("The status is " + status);
             },          
-            onCommand: function({command, genres, genreOrCategory, searchQuery}){
+            onCommand: function({command, cMode, genres, genreOrCategory, searchQuery, route}){
               if(command === 'chooseGenre') {
                 const foundGenre = genres.find((g) => g.name.toLowerCase() == genreOrCategory.toLowerCase());
                 // Genre
@@ -38,17 +39,23 @@ const useAlan = () => {
                 }
               } else if(command == 'searchMode') {
                 dispatch(setSearchQuery(searchQuery))
-              }
-               else if (command === 'changeMode') {
-                  if(mode == "dark"){
-                    if(mode != "dark") setMode("dark")
-                  } else {
-                    setMode("light")
-                  }
+              } else if (command === 'changeMode') {
+                if(cMode == "light") {
+                  setMode(prevMode => (prevMode = 'light' ));
+                } else {
+                  setMode(prevMode => (prevMode = 'dark' ));
+                }
               } else if(command === 'login') {
                   fetchToken()
               } else if(command === 'logout') {
                   logOut()
+              } else if(command === "navigation"){
+                if(route == "favorites") {
+                  history.push(`/profile/${accountID}`)
+                } else if(route == "home"){
+                  dispatch(selectGenreOrCategory(""))
+                  history.push("/")
+                }
               }
             }, 
             onEvent: function (e) {

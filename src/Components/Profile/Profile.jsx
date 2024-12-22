@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { userSelector } from "../../features/auth";
 import { useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
-import Pagination from "../Pagination/Pagination";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Button from '@mui/material/Button';
 import { useGetFavoriteMoviesQuery, useGetWatchListedMoviesQuery } from "../../services/TMDB";
 import RatedCards from "../RatedCards/RatedCards";
-import { Favorite } from "@mui/icons-material";
 
 const Profile = () => {
   const {user :{username}} = useSelector(userSelector)
@@ -15,8 +13,6 @@ const Profile = () => {
   const sessionID = localStorage.getItem("session_id")
   
   /* Pagination and API calls */
-  const[watchListPage, setWatchListPage] = useState("1")
-  const[favouritePage, setFavouritePage] = useState(1)
   const{data: watchListMovies, refetch: refetchWatchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
   const{data: favouriteMovies, refetch: refetchFavouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 

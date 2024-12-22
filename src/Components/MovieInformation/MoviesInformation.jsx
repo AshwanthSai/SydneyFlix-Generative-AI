@@ -1,8 +1,8 @@
-import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Toolbar, Tooltip, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, ButtonGroup, CircularProgress, Grid, Rating, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import Modal from '@mui/material/Modal';
 import {Link} from  "react-router-dom"
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useGetFavoriteMoviesQuery, useGetMovieDetailsQuery, useGetMovieRecommendationsQuery, useGetWatchListedMoviesQuery} from "../../services/TMDB";
 import useStyles from "./styles"
 import genreIcons from "../../Assets/genres"; 
@@ -11,12 +11,7 @@ import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import LanguageIcon from '@mui/icons-material/Language';
 import MovieIcon from '@mui/icons-material/Movie';
 import TheatersIcon from '@mui/icons-material/Theaters';
-import { ArrowBack, Favorite, FavoriteBorderOutlined, MovieTwoTone, PlusOne, Remove, TrendingUpOutlined } from "@mui/icons-material";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { ArrowBack, Favorite, FavoriteBorderOutlined, PlusOne, Remove} from "@mui/icons-material";
 import MovieList from "../MovieList/MovieList";
 import Pagination from "../Pagination/Pagination";
 import { useTheme } from "@emotion/react";
@@ -30,13 +25,9 @@ const Movie = () => {
   const{data, error, isLoading} = useGetMovieDetailsQuery(id);
   const{data: recommendations, error:recommendationsFetchingError, isLoading:isRecommendationsLoading} = useGetMovieRecommendationsQuery(({movie_id: id, page: page.toString()}));
   const theme = useTheme();
-  let history = useHistory();
-  /* Slicing number of movies depending on screen size to prevent gap within list. */
-  const isXl = useMediaQuery(theme.breakpoints.up("xl"));
-  const isL = useMediaQuery(theme.breakpoints.up("lg"));
-  const isMd = useMediaQuery(theme.breakpoints.up("md"));
-  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
-
+  const xl = useMediaQuery((theme) => theme.breakpoints.up('xl'));
+  const numberOfMovies = xl ? 14 : 15 ;
+  const buttonsContainerOverlapPrevent = useMediaQuery('(max-width:1047px)');
 
   /* Modal, Youtube Video */
   const [open, setOpen] = useState(false);
@@ -51,13 +42,14 @@ const Movie = () => {
   const{data: watchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
   const{data: favouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
+
   useEffect(() => {
-    console.log(!!favouriteMovies?.results?.find((movie) => movie?.id == id))
+    // If the movie is already been favorite, then show unfavorite icon on first render.
     setIsMovieFavorite(!!favouriteMovies?.results?.find((movie) => movie?.id == id));
   }, [favouriteMovies, id]);
 
   useEffect(() => {
-    console.log(!!watchListMovies?.results?.find((movie) => movie?.id == id))
+    // If the movie is already been watchlisted, then show Unwanchlist icon on first render.
     setIsMovieWatchlisted(!!watchListMovies?.results?.find((movie) => movie?.id == id));
   }, [watchListMovies, id]);
 
@@ -66,10 +58,11 @@ const Movie = () => {
       accept: 'application/json',
       'content-type': 'application/json',
       // eslint-disable-next-line max-len
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MDk3ODY1MTkyMDI2N2IzNTFhMzNiNWQ1NTEzMWU2NSIsIm5iZiI6MTcyMzEyNTAzNi4yODE5OTk4LCJzdWIiOiI2NmI0Y2QyYzJkYzI4ZTQzNTk3YTlkYjAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-iLsD84ilg-j9ZYCXC1TNF-EdFcQ1LYUysE_dok5uCM'
+      Authorization: 'Bearer ${process.env.REACT_APP_TMDBKEY}'
     }
   }
 
+  //onClicking Favorite Icon
   const addToFavorites = async (status) => {
     try {
       const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/favorite?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
@@ -93,6 +86,7 @@ const Movie = () => {
     setIsMovieFavorite((prev) => !prev)
   };
   
+  //onClicking WatchList Icon
   const addToWatchlist = async(status) => {
     try {
       const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/watchlist?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
@@ -169,6 +163,7 @@ const Movie = () => {
             alt={data?.title}
           />
         </Grid> 
+        {/* Movie Name, Tagline Grid */}
         <Grid item container direction="column" lg={7}>
           <Typography variant="h3" align="center" gutterBottom>
             {`${data?.title} (${data?.release_date.split("-")[0]})`}
@@ -176,6 +171,7 @@ const Movie = () => {
           <Typography variant="h5" align="center" gutterBottom>
             {data?.tagline}
           </Typography>
+          {/* Movie Details Grid */}
             <Grid item className ={classes.containerSpaceAround}>
               <Box display ="flex" align="center">
                 <Rating name="read-only" value={data?.vote_average ? data.vote_average / 2 : 0} readOnly />
@@ -184,10 +180,10 @@ const Movie = () => {
                 </Typography>
               </Box>
               <Typography sx={{ fontWeight: "normal" }}  gutterBottom variant="h6" align="center" >
-              {console.log(data?.release_date)}
                 {data?.runtime}min / {new Date(data?.release_date).toLocaleString('default', { month: 'long' })} {data?.release_date.split("-")[0]}  / {data?.spoken_languages[0].name}
               </Typography>
             </Grid>
+            {/* Genre Grid */}
             <Grid item className={classes.genresContainer}>
                 {/* 
                   We are adding, display flex to Link
@@ -220,7 +216,7 @@ const Movie = () => {
                 Top Cast
               </Typography> 
             </Grid>
-            {/* For Cast Photos */}
+            {/* Cast Photos Grid*/}
             <Grid item container spacing={2}>
             {data && data?.credits?.cast?.slice(0, 6).map((character, i) => (
               character.profile_path && (
@@ -244,11 +240,13 @@ const Movie = () => {
                 </Grid>)
              ))}
             </Grid>
-            <Grid item container style ={{marginTop: "2rem"}}>
+            {/* Buttons -> IMDB, Website, Trailer, Favourite, Unfavourite */}
+            {/* sx={{flexDirection: buttonsContainerOverlapPrevent ? 'column' : 'row' }}  */}
+            <Grid item container className = {classes.buttonsContainer} style ={{marginTop: "2rem"}}>
               {/* Segregate into Groups of 2 (3 x 2 = 6)*/}
-              <div className = {classes.buttonsContainer}>
                 {/* Each Group */}
-                <Grid item xs={12} sm={6} className = {classes.buttonsContainer}>
+                {/* xs={12} sm={12} md={12} lg={12} xl={6} */}
+                <Grid item >
                   <ButtonGroup size="large" variant="outlined">
                   {/* If you {} a text attribute, it returns a text attribute */}
                   <Button target = "_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<LanguageIcon/>}>Website
@@ -257,7 +255,7 @@ const Movie = () => {
                   <Button target = "_blank" rel="noopener noreferrer" href="" endIcon={<TheatersIcon/>} onClick = {handleOpen}> Trailer</Button>
                   </ButtonGroup>
                 </Grid>
-                <Grid item xs={12} sm={6} className = {classes.buttonsContainer}>
+                <Grid item>
                 <ButtonGroup size="large" variant="outlined">
                 <Button onClick={() => addToFavorites(isMovieFavorited)} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
                   {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
@@ -272,16 +270,16 @@ const Movie = () => {
                   </Button>
                 </ButtonGroup>
                 </Grid>
-              </div>
             </Grid>
         </Grid>
       </Grid>
       {/* Box == Div that is easy to style */}
+      {/* Recommended Movies */}
       <Box marginTop = "5rem" width= "100%">
           <Typography variant="h3" gutterBottom align="center">You might also like</Typography>
           <div>
             {recommendations && !isRecommendationsLoading ?
-             <MovieList movies ={recommendations} numberOfMovies={12} /> : 
+             <MovieList movies ={recommendations} numberOfMovies={numberOfMovies} /> : 
              (
               <Box>
                 No Recommended Movies Found
@@ -291,6 +289,7 @@ const Movie = () => {
             <Pagination currentPage={page} setPage={setPage} totalPages={recommendations?.total_pages}/>
           </div>
       </Box>
+      {/* Trailer Modal */}
       <Modal
         closeAfterTransition
         className={classes.modal}

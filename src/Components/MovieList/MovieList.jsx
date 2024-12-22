@@ -4,6 +4,7 @@ import useStyles from "./styles";
 import Movie from "../Movie/Movie";
 
 const MovieList = ({ movies, numberOfMovies, excludeFirst }) => {
+    /* Exclude 1 as it is same as Featured Movie */
     const start = excludeFirst ? 1 : 0
     const classes = useStyles()
     return (

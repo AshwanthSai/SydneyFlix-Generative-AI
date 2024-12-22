@@ -12,18 +12,18 @@ const Actors = React.lazy(() => import("./Components/Actors/Actors.jsx"))
 const MoviesInformation = React.lazy(() => import("./Components/MovieInformation/MoviesInformation.jsx"))
 const Profile = React.lazy(() => import("./Components/Profile/Profile.jsx"))
 
-// Circular Spinner
-const LoadingFallback = () => (
-  <Box className={classes.centerScreen}>
-    <CircularProgress size="7rem" />
-  </Box>
-);
 
 export const App = () => {
   /* Returns an Object with Classnames as key and properties as values. */
   const classes = useStyles();
   const alanBtnContainer = useRef(); //* Creating a Ref 
-
+  // Aux for Lazy Loading
+  const LoadingFallback = () => (
+    <Box className={classes.centerScreen}>
+      <CircularProgress size="7rem" />
+    </Box>
+  );
+  
   //Runs the useEffect hook within the useAlan hook on App Mount
   useAlan();
   return (

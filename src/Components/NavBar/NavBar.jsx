@@ -65,7 +65,7 @@ const NavBar = () => {
       loginUser();
     }, [token, sessionIdFromLocalStorage]); 
 
-    
+  // onSmaller Screens, if we click on Genre or User, Side Bar should be closed
   useEffect(()=> {
     setMobileOpen(false)
   }, [user, genreIdOrCategoryName])

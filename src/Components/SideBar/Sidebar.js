@@ -1,6 +1,5 @@
 import { makeStyles } from "@mui/styles";
 
-/* App Level Style */
 export default makeStyles((theme) => ({
   imageLink: {
     display: 'flex',

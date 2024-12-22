@@ -1,4 +1,3 @@
-import { AccountCircle } from "@mui/icons-material";
 import { InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
@@ -40,6 +39,7 @@ const Search = () => {
           )
         }}
         onKeyDown={handleKeyPress}
+        // on each Key press, store updated query into state
         onChange = {(e) => {setQuery(e.target.value)}}
       />
     </div>

@@ -1,4 +1,7 @@
+import { useMediaQuery } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+
+
 
 export default makeStyles((theme) => ({
   /* 
@@ -15,9 +18,15 @@ export default makeStyles((theme) => ({
     },
   },
   poster: {
+    display: "flex",
+    justifyContent: "center",
     borderRadius: '20px',
     boxShadow: '0.5em 1em 1em rgb(64, 64, 70)',
     width: '80%',
+    [theme.breakpoints.down('lg')]: {
+      margin: '0 auto !important',
+      width: '50%',
+    },
     [theme.breakpoints.down('md')]: {
       margin: '0 auto !important',
       width: '50%',
@@ -60,9 +69,12 @@ export default makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-    },
+    flexShrink: 1,
+    flexWrap : "wrap",
+    [theme.breakpoints.down('xl')]: {
+      flexDirection: "column",
+      justifyContent: 'center',
+    }
   },
   modal: {
     display: 'flex',

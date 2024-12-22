@@ -33,6 +33,7 @@ export default makeStyles((theme) => ({
         //*The darken mode will darken the colors 
         //* of the background image where the background color is applied.
         backgroundBlendMode: 'darken',
+        objectFit : "cover",
       },
       cardContent: {
         color: '#fff', // White

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useStyles from "./styles"
 import { useGetActorDetailsQuery, useGetMoviesByActorQuery } from "../../services/TMDB";
-import { ArrowBack, CollectionsBookmarkOutlined } from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useHistory } from "react-router-dom";
 import MovieList from "../MovieList/MovieList";
@@ -18,13 +18,9 @@ const Actors = () => {
   const theme = useTheme();
   const {data : actorMovies, error : actorMoviesError, isLoading :actorMoviesIsLoading} = useGetMoviesByActorQuery({actor_id:id,page: page.toString()});
   let history = useHistory();
-  /* Slicing number of movies depending on screen size to prevent gap within list. */
-  const isXl = useMediaQuery(theme.breakpoints.up("xl"));
-  const isL = useMediaQuery(theme.breakpoints.up("lg"));
-  const isMd = useMediaQuery(theme.breakpoints.up("md"));
-  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
+  const xl = useMediaQuery((theme) => theme.breakpoints.up('xl'));
+  const numberOfMovies = xl ? 14 : 15 ;
 
-  
   if(isLoading) {
     return(
       <Box  className={classes.centerScreen}>
@@ -77,6 +73,7 @@ const Actors = () => {
             alt={data?.name}
           />
         </Grid>
+        {/* Actor Information Grid  */}
         <Grid className = {classes.ActorInformation} item container direction="column" lg={7} xl={8}>
           <Typography variant="h2" gutterBottom>
                 {`${data?.name}`}
@@ -84,9 +81,11 @@ const Actors = () => {
           <Typography variant="h5" gutterBottom>
                 Born : {new Date(data?.birthday).toDateString()} 
           </Typography>
-          <Typography paragraph variant="body1" gutterBottom align="justify">
+          {/* Inline Style beacause MUI Style is interfering  */}
+          <Typography sx={{marginRight: "10%"}} paragraph variant="body1" gutterBottom align="justify">
             {data?.biography || 'Sorry, no biography yet...'}
           </Typography>
+          {/* IMDB and Back Button */}
           {/* Everything does not have to be Container, It could be an item with 2 elements */}
           <Grid item className = {classes.buttonsContainer}>
             <Button variant="contained" target = "_blank" rel="noopener noreferrer" href={`https://www.imdb.com/name/${data?.imdb_id}/`}>
@@ -98,11 +97,12 @@ const Actors = () => {
           </Grid>
         </Grid>
     </Grid>
+    {/* Recommended Movies of Actor */}
     <Box marginTop = "2rem 0" width= "100%">
       <Typography variant="h2" gutterBottom align="center">Movies</Typography>
       <div>
             {actorMovies && !actorMoviesIsLoading ?
-             <MovieList movies ={actorMovies} numberOfMovies={12} /> : 
+             <MovieList movies ={actorMovies} numberOfMovies={numberOfMovies} /> : 
              (
               <Box>
                 No Recommended Movies Found

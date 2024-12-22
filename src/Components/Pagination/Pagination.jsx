@@ -18,8 +18,9 @@ const Pagination = ({currentPage, setPage, totalPages}) => {
     }
   }
 
+  //If single page then, do not render pagination component.
   if(totalPages === 0) {
-    return null; //If single page then, do not render pagination component.
+    return null; 
   }
 
   return(
@@ -28,7 +29,6 @@ const Pagination = ({currentPage, setPage, totalPages}) => {
         <Button type="button" color = "primary" variant="contained" onClick = {pageDecrease} className={classes.button} >PREV</Button>
           <Typography className = {classes.pageNumber} variant = "h4">
             {' '} {currentPage} {' '} 
-           {/*  //* Instead of Adding Empty Space. = Add Margin and Padding to this element*/}
           </Typography>
         <Button type="button" color = "primary" onClick = {pageIncrease} className={classes.button} variant="contained" >NEXT</Button>
       </div>

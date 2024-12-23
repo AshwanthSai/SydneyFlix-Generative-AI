@@ -88,7 +88,7 @@ const Actors = () => {
           {/* IMDB and Back Button */}
           {/* Everything does not have to be Container, It could be an item with 2 elements */}
           <Grid item className = {classes.buttonsContainer}>
-            <Button variant="contained" target = "_blank" rel="noopener noreferrer" href={`https://www.imdb.com/name/${data?.imdb_id}/`}>
+            <Button id= "IMDB" variant="contained" target = "_blank" rel="noopener noreferrer" href={`https://www.imdb.com/name/${data?.imdb_id}/`}>
                 IMDB
             </Button>
             <Button color="primary" onClick = {() => history.goBack()} startIcon={<ArrowBackIcon />}>

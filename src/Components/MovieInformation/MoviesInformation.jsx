@@ -221,7 +221,7 @@ const Movie = () => {
             {data && data?.credits?.cast?.slice(0, 6).map((character, i) => (
               character.profile_path && (
                 <Grid key={i} item xs={4} md={2} 
-                 id = {character.name}
+                 id = {character.name.toLowerCase()}
                  // The component internally is a Link
                  component={Link} 
                  to={`/actors/${character.id}`}
@@ -250,19 +250,19 @@ const Movie = () => {
                 <Grid item >
                   <ButtonGroup size="large" variant="outlined">
                   {/* If you {} a text attribute, it returns a text attribute */}
-                  <Button target = "_blank" rel="noopener noreferrer" href={data?.homepage} endIcon={<LanguageIcon/>}>Website
+                  <Button target = "_blank" rel="noopener noreferrer" href={data?.homepage} id="webPageButton" endIcon={<LanguageIcon/>}>Website
                   </Button>
-                  <Button target = "_blank" rel="noopener noreferrer" href={`https://www.imdb.com/title/${data.imdb_id}/`} endIcon={<MovieIcon/>}>IMDB</Button>
-                  <Button target = "_blank" rel="noopener noreferrer" href="" endIcon={<TheatersIcon/>} onClick = {handleOpen}> Trailer</Button>
+                  <Button target = "_blank" rel="noopener noreferrer" id="IMDB" href={`https://www.imdb.com/title/${data.imdb_id}/`} endIcon={<MovieIcon/>}>IMDB</Button>
+                  <Button target = "_blank" rel="noopener noreferrer" id= "trailer" href="" endIcon={<TheatersIcon/>} onClick = {handleOpen}> Trailer</Button>
                   </ButtonGroup>
                 </Grid>
                 <Grid item>
                 <ButtonGroup size="large" variant="outlined">
-                <Button onClick={() => addToFavorites(isMovieFavorited)} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
+                <Button id="FavoriteOrUnFavoriteButton" onClick={() => addToFavorites(isMovieFavorited)} endIcon={isMovieFavorited ? <FavoriteBorderOutlined /> : <Favorite />}>
                   {isMovieFavorited ? 'Unfavorite' : 'Favorite'}
                   </Button>
-                  <Button onClick={() => addToWatchlist(isMovieWatchlisted)} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
-                    Watchlist
+                  <Button id="WatchListOrUnWatchlistButton" onClick={() => addToWatchlist(isMovieWatchlisted)} endIcon={isMovieWatchlisted ? <Remove /> : <PlusOne />}>
+                  {isMovieWatchlisted ? 'Un Watchlist' : 'Watchlist'}
                   </Button>
                   <Button endIcon={<ArrowBack />} sx={{ borderColor: 'primary.main' }}>
                     <Typography variant="subtitle2" component={Link} to="/" color="inherit" sx={{ textDecoration: 'none' }}>

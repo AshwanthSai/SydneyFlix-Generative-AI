@@ -8,7 +8,7 @@ const FeaturedMovie = ({movie}) => {
   //If no movie, do not render
   if(!movie) return null
   return (
-    <Box component={Link} to={`/movie/${movie.id}`} className={classes.featuredCardContainer}>
+    <Box id ={movie.title.toLowerCase()} component={Link} to={`/movie/${movie.id}`} className={classes.featuredCardContainer}>
       {/* Flex-end */}
       <Card className={classes.card} classes={{ root: classes.cardRoot }}>
         <CardMedia
@@ -20,7 +20,7 @@ const FeaturedMovie = ({movie}) => {
         />
        <Box padding="20px">
           <CardContent className={classes.cardContent} classes={{ root: classes.cardContentRoot }}>
-            <Typography variant="h5" gutterBottom>{movie.title}</Typography>
+            <Typography id ="featuredMovieContent" variant="h5" gutterBottom>{movie.title}</Typography>
             <Typography variant="body2">{movie.overview}</Typography>
           </CardContent>
         </Box> 

@@ -18,13 +18,23 @@ const useAlan = () => {
     const accountID = localStorage.getItem("account_id")
     // useEffect(() => {console.log(command)}, [command])
     useEffect(() => {
-        alanBtn({
+      
+        var alanBtnInstance = alanBtn({
             key: process.env.REACT_APP_ALAN_KEY,
             host: 'v1.alan.app',
             onConnectionStatus: function(status, ) {
               console.log("The status is " + status);
-            },          
-            onCommand: function({command, cMode, genres, genreOrCategory, searchQuery, route}){
+            },     
+            onButtonState: async function(status) {
+              if (status === 'ONLINE') {
+                if (!this.greetingWasSaid) {
+                  await alanBtnInstance.activate();
+                  alanBtnInstance.playText("Hello! I'm Sai. Your Personal Assistant, How can I help you?");
+                  this.greetingWasSaid = true
+                }
+              }
+            },     
+            onCommand: function({command, cMode, genres, genreOrCategory, searchQuery, route, actorName, movieName}){
               if(command === 'chooseGenre') {
                 const foundGenre = genres.find((g) => g.name.toLowerCase() == genreOrCategory.toLowerCase());
                 // Genre
@@ -39,6 +49,21 @@ const useAlan = () => {
                 }
               } else if(command == 'searchMode') {
                 dispatch(setSearchQuery(searchQuery))
+              } else if(command == 'OpenMovie') {
+                // const MovieLinkComponent = document.getElementById(movieName.toLowerCase())
+                let prefix = movieName.toLowerCase().split(" ")[0]
+                console.log(prefix)
+                const similarItems = document.querySelectorAll(`[id*="${prefix}"]`);
+                console.log(similarItems)
+                if(similarItems.length == 1){
+                  similarItems[0].click()
+                  window.scrollTo(0, 0);
+                } else {
+                  sendText("Error: Please refine your search")
+                }
+              } else if(command == 'OpenActor') {
+                
+
               } else if (command === 'changeMode') {
                 if(cMode == "light") {
                   setMode(prevMode => (prevMode = 'light' ));
@@ -74,6 +99,10 @@ const useAlan = () => {
                 }
             },
             });
+      function sendText(message) {
+          // alanBtnInstance.sendText(message);
+          alanBtnInstance.playText(message);
+      }
       }, []);
 };
 

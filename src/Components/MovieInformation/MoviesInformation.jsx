@@ -221,6 +221,7 @@ const Movie = () => {
             {data && data?.credits?.cast?.slice(0, 6).map((character, i) => (
               character.profile_path && (
                 <Grid key={i} item xs={4} md={2} 
+                 id = {character.name}
                  // The component internally is a Link
                  component={Link} 
                  to={`/actors/${character.id}`}

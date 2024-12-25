@@ -1,20 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client'; // Import createRoot from react-dom/client
 import { App } from './App';
-import { BrowserRouter} from "react-router-dom";
-import { Provider } from 'react-redux'
-import {store} from "./app/store"
-import "./index.css"
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { store } from "./app/store";
+import "./index.css";
 import ToggleColorMode from './utils/ToggleColorMode';
 
-ReactDOM.render(
+// Get the root element
+const rootElement = document.getElementById('root');
+
+// Create a root using createRoot
+const root = createRoot(rootElement);
+
+// Render the application
+root.render(
     /* Passing theme as Context */
     <Provider store={store}>
         <ToggleColorMode>
             <BrowserRouter>
-                <App className = "index"/>
+                <App className="index" />
             </BrowserRouter>
         </ToggleColorMode>
-    </Provider>,
-    document.getElementById('root'),
+    </Provider>
 );

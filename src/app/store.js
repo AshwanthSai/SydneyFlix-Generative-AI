@@ -22,3 +22,18 @@ export const store = configureStore({
 
 // Optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 setupListeners(store.dispatch);
+
+/* Aux for Making Dummy Store while testing */
+import { combineReducers } from '@reduxjs/toolkit'
+
+// Create the root reducer independently to obtain the RootState type
+const rootReducer = combineReducers({
+  user: userReducer
+})
+
+export function setupStore(preloadedState) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState
+  })
+}

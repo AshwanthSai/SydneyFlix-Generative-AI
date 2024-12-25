@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserData} from "../../features/auth.js";
 import {userSelector} from "../../features/auth.js";
 import {ColorModeContext} from "../../utils/ToggleColorMode"
+import { useAppDispatch, useAppSelector } from "../../app/hooks.js";
 /* 
   Nav Bar
     > Tool Bar
@@ -30,10 +31,12 @@ const NavBar = () => {
   const token = localStorage.getItem("token")
   const sessionIdFromLocalStorage = localStorage.getItem("session_id"); 
   const {genreIdOrCategoryName} = useSelector(store => store.currentGenreOrCategory)
-  
+  // const {genreIdOrCategoryName} = useAppSelector(store => store.currentGenreOrCategory)
   const dispatch = useDispatch();
+  // const dispatch = useAppDispatch();
   /* Aux for login button, User.id to redirect to profile page. */
   const {isAuthenticated, user} = useSelector(userSelector)
+  // const {isAuthenticated, user} = useAppSelector(userSelector)
   /* 
     If token exists and sessionIdFromLocalStorage
       - then request for User Data

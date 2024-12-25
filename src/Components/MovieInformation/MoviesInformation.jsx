@@ -39,9 +39,16 @@ const Movie = () => {
   const [isMovieWatchlisted,setIsMovieWatchlisted] = useState("false");
   const accountID = localStorage.getItem("account_id")
   const sessionID = localStorage.getItem("session_id")
-  const{data: watchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
-  const{data: favouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
+  const{data: watchListMovies, refetch: refetchWatchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
+  const{data: favouriteMovies, refetch: refetchFavouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
+   useEffect(() => {
+      /* Refetch on Component Mount */
+      window.scrollTo(0, 0)
+      refetchWatchListMovies()
+      refetchFavouriteMovies()
+    }, [id]) 
+  
 
   useEffect(() => {
     // If the movie is already been favorite, then show unfavorite icon on first render.

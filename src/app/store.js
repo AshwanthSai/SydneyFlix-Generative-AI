@@ -28,12 +28,24 @@ import { combineReducers } from '@reduxjs/toolkit'
 
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
+  // Add the generated reducer as a specific top-level slice
+  [tmdbApi.reducerPath]: tmdbApi.reducer,
+  /* Slice Name : Reducer Object with All Reducers */
+  currentGenreOrCategory: genreOrCategoryReducer,
+  // Slice for managing user authentication
   user: userReducer
-})
+});
 
+
+// We are returning our store as is, because. 
+// Creating a new store is invoking some form of dependency
+// Hours Wasted = 20
 export function setupStore(preloadedState) {
-  return configureStore({
+  return store
+  /* configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(tmdbApi.middleware),
     preloadedState
-  })
+  }); */
 }

@@ -24,23 +24,26 @@ const Search = () => {
   }
 
   return (
-    <div className = {classes.searchContainer}>
+    <div className={classes.searchContainer}>
       <TextField
         hiddenLabel
         id="filled-hidden-label-normal"
         variant="filled"
         placeholder="Search"
-        InputProps = {{
+        inputProps={{
+          'data-testid': 'search-input',
           className: classes.input,
+        }}
+        InputProps={{
           startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-          )
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
         }}
         onKeyDown={handleKeyPress}
         // on each Key press, store updated query into state
-        onChange = {(e) => {setQuery(e.target.value)}}
+        onChange={(e) => { setQuery(e.target.value) }}
       />
     </div>
   )

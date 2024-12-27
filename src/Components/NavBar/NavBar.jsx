@@ -95,7 +95,7 @@ const NavBar = () => {
               </IconButton>
             }
             {/* Dark Mode && Light Mode Switch */}
-            <IconButton color="inherit" sx={{ml:1}}
+            <IconButton data-testid="color-switch" color="inherit" sx={{ml:1}}
              onClick = {toggleColorMode}>
              {/* Brightness4 & Brightness 7 are Buttons */}
               {theme.palette.mode === "dark" ? <Brightness4/> : <Brightness7 /> }
@@ -113,8 +113,9 @@ const NavBar = () => {
                     <Button
                       color = "inherit"
                       onClick = {() => fetchToken()}
+                      data-testid="profile-avatar"
                     >
-                      Login &nbsp; <AccountCircle/>
+                      Login &nbsp; <AccountCircle data-testid="login-button"/>
                     </Button>
                    )
                   : (
@@ -131,6 +132,7 @@ const NavBar = () => {
                         sx = {{width : 30, height : 30, objectFit : "cover"}}
                         alt = "Profile"
                         src = {`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`}
+                        data-testid="profile-avatar"
                       />
                     </Button>
                   )}

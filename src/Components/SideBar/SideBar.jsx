@@ -28,25 +28,25 @@ const SideBar = ({setMobileOpen}) => {
       {/* Logo Link*/}
       <Link to="/" onClick = {() => {dispatch(selectGenreOrCategory(""))}} className = {classes.imageLink}>
         <img 
+          alt="logo"
           className={classes.image}
           src={theme.palette.mode === "light" ? Blue : Red}     
         />
       </Link>
-
       <Divider/>
       <List>
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
-          <Link key={value} className={classes.links} to="/">
-            <ListItem button onClick={() => {
-                dispatch(selectGenreOrCategory(value))
-            }}>
-              <ListItemIcon>
-                <img src={genreIcons[label.toLowerCase()]} className={classes.genreImages} height={30} />
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
-          </Link>
+              <Link to="/" key={value} className={classes.links}>
+                <ListItem onClick={() => {
+                    dispatch(selectGenreOrCategory(value))
+                }}>
+                  <ListItemIcon>
+                    <img src={genreIcons[label.toLowerCase()]} className={classes.genreImages} height={30}/>
+                  </ListItemIcon>
+                    <ListItemText primary={label} />
+                </ListItem>
+              </Link>
         ))}
       </List>
       <Divider/>

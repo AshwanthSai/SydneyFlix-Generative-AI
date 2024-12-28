@@ -10,73 +10,56 @@ import { useSelector } from "react-redux";
 /* Do not run Alan SDK, Simply Mock It */
 jest.mock("../Alan.jsx", () => () => {});
 
+describe("NavBar Component", () => {
+  test("renders the NavBar structure consistently", async () => {
+    renderWithProviders(<NavBar />);
+    screen.getByText(/Categories/i);
+    screen.getByText(/Genres/i);
+    screen.getByTestId('Brightness7Icon'); // Light Mode Icon
+    screen.getByTestId('search-input'); // Search Bar
+    screen.getByTestId('profile-avatar'); // Profile Avatar
 
-describe("Nav Bar Structure Renders Consistently ", () => {
-     test("Nav Bar Structure is Rendered", async() => {
-        renderWithProviders(<NavBar />);
-        screen.getByText(/Categories/i);
-        screen.getByText(/Genres/i);
-        screen.getByTestId('Brightness7Icon'); // Light Mode Icon
-        screen.getByTestId('search-input'); // Search Bar
-        screen.getByTestId('profile-avatar'); // profile Avatar
+    // This Button is not rendered initially, only after API Call
+    waitFor(async () => {
+      const button = await screen.findByRole('button', { name: /western/i });
+      expect(button).toBeInTheDocument();
+    });
+  });
 
-        //This Button is not rendered initially, only after API Call
-        waitFor(async () => {
-          const button = await screen.findByRole('button', { name: /western/i })
-          expect(button).toBeInTheDocument();
-        })
-        
-      }); 
+  test("toggles color theme when dark mode is clicked", async () => {
+    renderWithProviders(<NavBar />);
+    const colorSwitch = await screen.findByTestId('color-switch');
+    const { result } = renderHook(() => useContext(ColorModeContext));
+    fireEvent.click(colorSwitch);
+    waitFor(async () => {
+      await expect(result.current.mode).toBe("dark");
+    });
+  });
 
-    test("Click on Dark Mode Switches Color theme", async() => {
-        renderWithProviders(
-              <NavBar />
-          );      
-        const colorSwitch = await screen.findByTestId('color-switch')
-        // You need a specific different library to test React Hooks
-        const { result } = renderHook(() => useContext(ColorModeContext));
-        fireEvent.click(colorSwitch);
-        waitFor(async () => {
-            await expect(result.current.mode).toBe("dark");
-        });
-    }); 
+  test("updates the search bar value correctly", async () => {
+    renderWithProviders(<NavBar />);
+    const searchBar = await screen.findByTestId("search-input");
+    await userEvent.type(searchBar, 'SuperMan');
+    expect(searchBar).toHaveValue("SuperMan");
+  });
 
-    test("Checking if Search Bar is working", async() => {
-        renderWithProviders(
-              <NavBar />
-          );      
-        const searchBar = await screen.findByTestId("search-input")
-        await userEvent.type(searchBar, 'SuperMan');
-        expect(searchBar).toHaveValue("SuperMan");
-    }); 
+  test("updates currentGenreOrCategory in the store when a genre/category is clicked", async () => {
+    const { store } = renderWithProviders(<NavBar />);
+    const link = screen.getByRole('link', { name: /popular/i });
+    fireEvent.click(link);
+    waitFor(async () => {
+      const updatedState = await store.getState();
+      expect(updatedState.currentGenreOrCategory.genreIdOrCategoryName).toBe("popular");
+    });
+  });
 
-    test("Checking if Genres/Categories Change", async () => {
-        const { store } = renderWithProviders(
-          <NavBar />
-        );
-    
-        const link = screen.getByRole('link', {
-          name: /popular/i
-        });
-    
-        fireEvent.click(link);
-    
-        waitFor(async() => {
-          const updatedState = await store.getState();
-          expect(updatedState.currentGenreOrCategory.genreIdOrCategoryName).toBe("popular");
-        });
-      });
-
-      test("Checking if Searching Updates SearchQuery within Store ", async () => {
-        renderWithProviders(
-          <NavBar />
-        );      
-        const searchBar = await screen.findByTestId("search-input")
-        await userEvent.type(searchBar, 'SuperMan');
-        waitFor(async() => {
-          const updatedState = await store.getState();
-          expect(updatedState.currentGenreOrCategory.searchQuery).toBe("SuperMan");
-        });
-      });
-}); 
-
+  test("updates searchQuery in the store when searching", async () => {
+    renderWithProviders(<NavBar />);
+    const searchBar = await screen.findByTestId("search-input");
+    await userEvent.type(searchBar, 'SuperMan');
+    waitFor(async () => {
+      const updatedState = await store.getState();
+      expect(updatedState.currentGenreOrCategory.searchQuery).toBe("SuperMan");
+    });
+  });
+});

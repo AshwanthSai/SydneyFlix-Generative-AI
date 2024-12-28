@@ -17,7 +17,7 @@ const Movie = ({movie,i}) => {
           />
           { /* Dynamically Rendering a Movie Poster or Dummy Poster within src of Image */}
           <Typography className={classes.title} variant="h5">{movie.title}</Typography>
-          <Tooltip title={`${movie.vote_average.toFixed(2)} / 10`} disableInteractive>
+          <Tooltip data-testid= "movie-rating" title={`${movie.vote_average.toFixed(2)} / 10`} disableInteractive>
             {/* Movie Averages are on a Scale of 10 */}
              <div>
                <Rating readOnly value={movie.vote_average/2}  precision={0.1} />

@@ -18,6 +18,7 @@
     "i": "^0.3.7",
     "jest": "^27.5.1",
     "jest-fetch-mock": "^3.0.3",
+    "jest-fixed-jsdom": "^0.0.9",
     "npm": "^11.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -35,6 +36,11 @@
     "eject": "react-scripts eject",
     "clear_jest": "jest --clearCache"
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@bundled-es-modules)/).*/"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -51,12 +57,14 @@
     "@babel/preset-env": "^7.26.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/react-hooks": "^8.0.1",
+    "1.3.0": "^1.3.0",
     "cypress": "^13.17.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "msw": "^2.7.0"
   }
 }

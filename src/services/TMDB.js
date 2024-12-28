@@ -48,7 +48,7 @@ export const tmdbApi = createApi({
 
     getMovieDetails: builder.query({
       query: (id)=> `movie/${id}?language=en-US&append_to_response=videos,credits`,
-  }),
+    }),
 
     getMovieRecommendations: builder.query({
       //query: (movie_id, page) => `movie/${movie_id}/recommendations?language=en-US&page=${page}`, //1

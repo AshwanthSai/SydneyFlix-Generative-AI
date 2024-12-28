@@ -42,8 +42,9 @@ const Movie = () => {
   const{data: watchListMovies, refetch: refetchWatchListMovies, error:watchListMoviesError, isLoading:watchListMoviesLoading} = useGetWatchListedMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
   const{data: favouriteMovies, refetch: refetchFavouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
+  
    useEffect(() => {
-      /* Refetch on Component Mount */
+      // Refetch on Component Mount 
       window.scrollTo(0, 0)
       refetchWatchListMovies()
       refetchFavouriteMovies()
@@ -60,24 +61,23 @@ const Movie = () => {
     setIsMovieWatchlisted(!!watchListMovies?.results?.find((movie) => movie?.id == id));
   }, [watchListMovies, id]);
 
-  let config = {
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      // eslint-disable-next-line max-len
-      Authorization: 'Bearer ${process.env.REACT_APP_TMDBKEY}'
-    }
-  }
 
   //onClicking Favorite Icon
   const addToFavorites = async (status) => {
     try {
-      const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/favorite?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
-          "media_type": "movie",
-          "media_id": `${id}`,
-          "favorite": !status
-      },config);
+      const options = {
+        method: 'POST',
+        url: `https://api.themoviedb.org/3/account/21430582/favorite?session_id=${sessionID}`,
+        headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+          Authorization: `Bearer ${process.env.REACT_APP_TMDBKEY}`
+        },
+        data: {media_type: 'movie', media_id: `${id}`, favorite: !status}
+      };
 
+      const response = await axios.request(options)
+      console.log(response)
       if (response.data.success === true) {
         if(status) {
           console.log('Successfully added to favorites:', response.data);
@@ -96,12 +96,21 @@ const Movie = () => {
   //onClicking WatchList Icon
   const addToWatchlist = async(status) => {
     try {
-      const response = await axios.post(`https://api.themoviedb.org/3/account/${accountID}/watchlist?api_key=${process.env.REACT_APP_TMDBKEY}&session_id=${sessionID}`, {
-          "media_type": "movie",
-          "media_id": `${id}`,
-          "watchlist": !status
-      },config);
+      const options = {
+        method: 'POST',
+        url: `https://api.themoviedb.org/3/account/21430582/watchlist?session_id=${sessionID}`,
+        headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+          Authorization: `Bearer ${process.env.REACT_APP_TMDBKEY}`
+        },
+        data: {media_type: 'movie', media_id: '939243', watchlist: !status}
+      };
 
+      const response = await axios.request(options)
+      console.log(response)
+
+      console.log(response)
       if (response.data.success === true) {
         if(status) {
           console.log('Successfully added to Watchlist:', response.data);

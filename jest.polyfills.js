@@ -1,6 +1,7 @@
 /* 
-Dependency Fix for MSW - Mocking API
-Jest Test
+  Dependency Fix for MSW - Mocking API
+  Do not tamper with this file.
+  Wasted Hours  - 2
 */
 
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
@@ -17,5 +18,5 @@ if (globalThis.ReadableStream === undefined) {
 }
 
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
-beforeEach(() => server.resetHandlers());
+// beforeEach(() => server.resetHandlers());
 afterAll(() => server.close());

@@ -339,6 +339,145 @@ const favouritedMovies = {
   "total_results": 8
 }
 
+const actorInformation = {
+  "adult": false,
+  "also_known_as": [
+    "The Rock",
+    "Rocky Maivia",
+    "The Brahma Bull",
+    "The Corporate Champion",
+    "Скеля",
+    "Big Bull",
+    "Flex Kavana",
+    "Dwayne Douglas Johnson",
+    "Ντουέιν Ντάγκλας Τζόνσον",
+    "La Roca",
+    "Dwayne ‘The Rock’ Johnson",
+    "الصخرة",
+    "The Peoples Champion",
+    "The Great One",
+    "Скала",
+    "דווין ג'ונסון",
+    "ロック様",
+    "ザ・ロック",
+    "Hollywood Rock",
+    "The Final Boss",
+    "더 락",
+    "The Blue Chipper",
+    "The No. 1 Man in the Business",
+    "The Most Electrifying Man"
+  ],
+  "biography": "An American and Canadian actor, producer and semi-retired professional wrestler, signed with WWE. Johnson is half-Black and half-Samoan. His father, Rocky Johnson, is a Black Canadian, from Nova Scotia, and part of the first Black tag team champions in WWE history back when it was known as the WWF along with Tony Atlas. His mother is Samoan and the daughter of Peter Maivia, who was also a pro wrestler. Maivia's wife, Lia Maivia, was one of wrestling's few female promoters, taking over Polynesian Pacific Pro Wrestling after her husband's death in 1982, until 1988. Through his mother, he is considered a non-blood relative of the Anoa'i wrestling family. On March 29, 2008, The Rock inducted his father and his grandfather into the WWE Hall of Fame.\n\nAs of 2014, Johnson has a home in Southwest Ranches, Florida as well as Los Angeles, California. He also owns a farm in Virginia. In 2009, Johnson gained citizenship in Canada in honor of his father's background. Though Johnson was previously registered as a Republican, he voted for Barack Obama in the 2008 and 2012 United States presidential elections and is now an independent voter. He stated he did not vote in the 2016 U.S. election.\n\nIn recognition of his service to the Samoan people, and because he is a descendant of Samoan chiefs, Johnson had the noble title of Seiuli bestowed upon him by Malietoa Tanumafili II during his visit there in July 2004. He received a partial Samoan pe'a tattoo on his left side in 2003,and, in 2017, had the small \"Brahma bull\" tattoo on his right arm covered with a larger half-sleeve tattoo of a bull's skull.\n\nJohnson married Dany Garcia on May 3, 1997. Their only child together, a daughter named Simone, was born in August 2001. On June 1, 2007, they announced they were splitting up amicably. Johnson then began dating Lauren Hashian, daughter of Boston drummer Sib Hashian. They first met in 2006 while Johnson was filming The Game Plan. Their first child together, a daughter, was born in December 2015. Their second child, another daughter, was born in April 2018.\n\nJohnson attended the 2000 Democratic National Convention as part of WWE's non-partisan \"Smackdown Your Vote\" campaign, which aimed to influence young people to vote. He also had a speaking role at the 2000 Republican National Convention that same year.\n\nIn 2006, Johnson founded the Dwayne Johnson Rock Foundation, a charity working with at-risk and terminally ill children. On October 2, 2007, he and his ex-wife donated $1 million to the University of Miami to support the renovation of its football facilities; it was noted as the largest donation ever given to the university's athletics department by former students. The University of Miami renamed the Hurricanes' locker room in Johnson's honor. In 2015, Johnson donated $1,500 to a GoFundMe to pay for an abandoned dog's surgery. In 2017, he donated $25,000 to Hurricane Harvey relief efforts. In 2018, Johnson donated a gym to a military base in Oahu, Hawaii. After the 2018 Hawaii floods, he worked with Malama Kauai, a nonprofit organization, to help repair damages caused by the floods.",
+  "birthday": "1972-05-02",
+  "deathday": null,
+  "gender": 2,
+  "homepage": "https://wwe.com/superstars/the-rock",
+  "id": 18918,
+  "imdb_id": "nm0425005",
+  "known_for_department": "Acting",
+  "name": "Dwayne Johnson",
+  "place_of_birth": "Hayward, California, USA",
+  "popularity": 96.941,
+  "profile_path": "/kuqFzlYMc2IrsOyPznMd1FroeGq.jpg"
+}
+
+const recommendedActorMovies = {
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/cjEcqdRdPQJhYre3HUAc5538Gk8.jpg",
+      "genre_ids": [28, 14, 35],
+      "id": 845781,
+      "original_language": "en",
+      "original_title": "Red One",
+      "overview": "After Santa Claus (codename: Red One) is kidnapped, the North Pole's Head of Security must team up with the world's most infamous tracker in a globe-trotting, action-packed mission to save Christmas.",
+      "popularity": 5083.147,
+      "poster_path": "/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg",
+      "release_date": "2024-10-31",
+      "title": "Red One",
+      "video": false,
+      "vote_average": 7,
+      "vote_count": 1481
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/tElnmtQ6yz1PjN1kePNl8yMSb59.jpg",
+      "genre_ids": [28, 12, 14, 35],
+      "id": 1241982,
+      "original_language": "en",
+      "original_title": "Another Movie",
+      "overview": "Description of another movie.",
+      "popularity": 2800.123,
+      "poster_path": "/tElnmtQ6yz1PjN1kePNl8yMSb59.jpg",
+      "release_date": "2025-02-14",
+      "title": "Another Movie",
+      "video": false,
+      "vote_average": 6.8,
+      "vote_count": 234
+    },
+    {
+      "adult": false,
+      "backdrop_path": null,
+      "genre_ids": [28, 12, 14, 35],
+      "id": 1108427,
+      "original_language": "en",
+      "original_title": "Yet Another Movie",
+      "overview": "Description of yet another movie.",
+      "popularity": 1500.567,
+      "poster_path": "/path/to/poster.jpg",
+      "release_date": "2023-12-01",
+      "title": "Yet Another Movie",
+      "video": false,
+      "vote_average": 7.2,
+      "vote_count": 789
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/4XM8DUTQb3lhLemJC51Jx4a2EuA.jpg",
+      "genre_ids": [28, 14, 35],
+      "id": 385687,
+      "original_language": "en",
+      "original_title": "Another Action Movie",
+      "overview": "Action-packed movie description.",
+      "popularity": 2900.890,
+      "poster_path": "/4XM8DUTQb3lhLemJC51Jx4a2EuA.jpg",
+      "release_date": "2023-11-15",
+      "title": "Another Action Movie",
+      "video": false,
+      "vote_average": 6.5,
+      "vote_count": 1500
+    },
+    // Add the remaining movies in similar format
+  ],
+  "total_pages": 6,
+  "total_results": 101
+}
+
+const genres = {
+  "genres": [
+    { "id": 28, "name": "Action" },
+    { "id": 12, "name": "Adventure" },
+    { "id": 16, "name": "Animation" },
+    { "id": 35, "name": "Comedy" },
+    { "id": 80, "name": "Crime" },
+    { "id": 99, "name": "Documentary" },
+    { "id": 18, "name": "Drama" },
+    { "id": 10751, "name": "Family" },
+    { "id": 14, "name": "Fantasy" },
+    { "id": 36, "name": "History" },
+    { "id": 27, "name": "Horror" },
+    { "id": 10402, "name": "Music" },
+    { "id": 9648, "name": "Mystery" },
+    { "id": 10749, "name": "Romance" },
+    { "id": 878, "name": "Science Fiction" },
+    { "id": 10770, "name": "TV Movie" },
+    { "id": 53, "name": "Thriller" },
+    { "id": 10752, "name": "War" },
+    { "id": 37, "name": "Western" }
+  ]
+}
+
 const favoriteFailureResponse = {"success": true, "status_code": 13, "status_message": "The item/record was deleted successfully."}
 const watchListFailureResponse = {"success": true, "status_code": 13, "status_message": "The item/record was deleted successfully."}
 const favoriteSuccessResponse = {"success": true, "status_code": 1, "status_message": 'Success.'}
@@ -392,6 +531,7 @@ export const handlers = [
         );
       }
   }),
+  /* Add/Remove to Watch list */
   rest.post(`https://api.themoviedb.org/3/account/21430582/watchlist?session_id=:sessionID`,
     async (req, res, ctx) => {
       const requestBody = await req.json();
@@ -412,7 +552,27 @@ export const handlers = [
           ctx.delay(10)
         );
       }
-    })
+  }),
+  /* Get Actor Details */
+  rest.get(`https://api.themoviedb.org/3/person/:actor_id`,
+    (req, res, ctx) => {
+       // successful response
+       return res(ctx.status(200), ctx.json(actorInformation))
+  }),
+  /* Get Recommended Actor Movies */
+  rest.get(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page:page&sort_by=popularity.desc&with_cast=:actor_id`,
+    (req, res, ctx) => {
+       // successful response
+       return res(ctx.status(200), ctx.json(recommendedActorMovies))
+  }),
+  // APi Fail Check Route
+  rest.get(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page:page&sort_by=popularity.desc&with_cast=:actor_id`,
+    (req, res, ctx) => {
+       // successful response
+       return res(ctx.status(200), ctx.json(recommendedActorMovies))
+  }),
+  res.get(`https://api.themoviedb.org/3/genre/movie/list?language=en`, (req, res, ctx) => {
+    // successful response
+    return res(ctx.status(200), ctx.json(genres))
+  }),
 ]
-
-// + expectations

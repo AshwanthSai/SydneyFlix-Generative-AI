@@ -84,5 +84,3 @@ describe("MovieList Component", () => {
     });
 });
 });
-
-// expect(screen.getByTestId('movie-rating').getAttribute("aria-label") ).toHaveTextContent("7.00 / 10");

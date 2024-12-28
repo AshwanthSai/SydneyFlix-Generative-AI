@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 jest.mock("../Alan.jsx", () => () => {});
 
 describe("NavBar Component", () => {
-  test("renders the NavBar structure consistently", async () => {
+  test("renders the NavBar structure consistently", () => {
     renderWithProviders(<NavBar />);
     screen.getByText(/Categories/i);
     screen.getByText(/Genres/i);
@@ -20,6 +20,7 @@ describe("NavBar Component", () => {
     screen.getByTestId('profile-avatar'); // Profile Avatar
 
     // This Button is not rendered initially, only after API Call
+    // Which we have mocked 
     waitFor(async () => {
       const button = await screen.findByRole('button', { name: /western/i });
       expect(button).toBeInTheDocument();

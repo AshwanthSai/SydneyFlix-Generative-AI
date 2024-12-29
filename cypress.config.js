@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
+    baseUrl: 'https://sydneyflix.onrender.com/',
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
@@ -13,4 +14,6 @@ module.exports = defineConfig({
       bundler: "webpack",
     },
   },
+  // To prevent API Calls will be blocked
+  chromeWebSecurity: false,
 });

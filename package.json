@@ -30,11 +30,15 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -b gh-pages -d build",
-    "start": "react-scripts start",
+    "start": "set PORT=9000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
     "eject": "react-scripts eject",
-    "clear_jest": "jest --clearCache"
+    "clear_jest": "jest --clearCache",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:e2e": "start-server-and-test start http://localhost:3000 cypress:open",
+    "test:e2e:headless": "start-server-and-test start http://localhost:3000 cypress:run"
   },
   "jest": {
     "transformIgnorePatterns": [

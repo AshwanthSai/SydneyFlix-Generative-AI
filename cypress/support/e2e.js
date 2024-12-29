@@ -1,8 +1,6 @@
-// Import commands.js using ES2015 syntax:
 import './commands'
 
-describe('template spec', () => {
-    it('passes', () => {
-        cy.visit('https://localhost:3000')
-    })
+// Global configuration and setup here
+Cypress.on('uncaught:exception', (err, runnable) => {
+  return false
 })

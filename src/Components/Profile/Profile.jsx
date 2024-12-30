@@ -38,7 +38,7 @@ const Profile = () => {
       {/* For Banner and Icon */}
       <Box display="flex" justifyContent="space-between">
         <Typography variant="h4" gutterBottom>My Profile</Typography>
-        <Button color="inherit" onClick={logout}>
+        <Button color="inherit" onClick={logout} data-testid = "logout-button">
           Logout &nbsp; <ExitToAppIcon/>
         </Button>
       </Box>   

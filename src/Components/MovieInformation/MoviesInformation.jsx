@@ -77,7 +77,6 @@ const Movie = () => {
       };
 
       const response = await axios.request(options)
-      console.log(response)
       if (response.data.success === true) {
         if(status) {
           console.log('Successfully added to favorites:', response.data);
@@ -104,13 +103,11 @@ const Movie = () => {
           'content-type': 'application/json',
           Authorization: `Bearer ${process.env.REACT_APP_TMDBKEY}`
         },
-        data: {media_type: 'movie', media_id: '939243', watchlist: !status}
+        data: {media_type: 'movie', media_id: `${id}`, watchlist: !status}
       };
 
       const response = await axios.request(options)
-      console.log(response)
 
-      console.log(response)
       if (response.data.success === true) {
         if(status) {
           console.log('Successfully added to Watchlist:', response.data);

@@ -2,18 +2,25 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'https://sydneyflix.onrender.com/',
+    baseUrl: 'http://localhost:9000',
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      //To log to console. Used for debugging
+      on('task', {
+        log(message) {
+          console.log(message);
+          return null;
+        },
+      });
     },
   },
-
   component: {
     devServer: {
       framework: "create-react-app",
       bundler: "webpack",
     },
   },
-  // To prevent API Calls will be blocked
-  chromeWebSecurity: false,
+  env: {
+    tmdbTestEmail: 'test@Sydneflix',
+    tmdbTestPassword: 'test@Sydneflix',
+  },
 });

@@ -11,7 +11,7 @@ const MovieList = ({ movies, numberOfMovies, excludeFirst }) => {
     return (
         <>
              {/* MUI Toolbar Bug - Empty toolbar to start rendering after toolbar */}
-            <Grid container spacing={2} className={classes.moviesContainer}>
+            <Grid data-testid = "movieList" container spacing={2} className={classes.moviesContainer}>
             {/* For Categories */}
                 {movies.results && (movies.results.slice(start,numberOfMovies).map((movie,i) => (
                     <Movie key={i} movie={movie} i={i} /> 

@@ -25,7 +25,7 @@ const Pagination = ({currentPage, setPage, totalPages}) => {
 
   return(
     <>
-      <div className = {classes.container}>
+      <div data-testid= "pagination" className = {classes.container}>
         <Button type="button" color = "primary" variant="contained" onClick = {pageDecrease} className={classes.button} >PREV</Button>
           <Typography className = {classes.pageNumber} variant = "h4">
             {' '} {currentPage} {' '} 

@@ -125,7 +125,7 @@ const NavBar = () => {
                       component = {Link}
                       to = {`/profile/${user.id}`}
                       className = {classes.linkButton}
-                      onClick = {() => {}}
+                      data-testid = "profileButton"
                     >
                     {!isMobile && <> My Movies &nbsp;</>}
                       <Avatar

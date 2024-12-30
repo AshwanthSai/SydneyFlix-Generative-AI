@@ -8,7 +8,7 @@ const FeaturedMovie = ({movie}) => {
   //If no movie, do not render
   if(!movie) return null
   return (
-    <Box id ={movie.title.toLowerCase()} component={Link} to={`/movie/${movie.id}`} className={classes.featuredCardContainer}>
+    <Box id ={movie.title.toLowerCase()} data-testId = "featuredMovie" component={Link} to={`/movie/${movie.id}`} className={classes.featuredCardContainer}>
       {/* Flex-end */}
       <Card className={classes.card} classes={{ root: classes.cardRoot }}>
         <CardMedia

@@ -14,6 +14,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.22.0",
+    "cypress-slow-down": "^1.1.0",
     "gh-pages": "^4.0.0",
     "i": "^0.3.7",
     "jest": "^27.5.1",

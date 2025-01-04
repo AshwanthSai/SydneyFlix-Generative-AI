@@ -19,7 +19,7 @@ describe('Movies Feature', () => {
           // Enter credentials from environment variables
           cy.get(`[id="username"]`,  { timeout: 6000 }).type(Cypress.env().tmdbTestEmail)
           cy.get(`[id="password"]`, { timeout: 6000 }).type(Cypress.env().tmdbTestPassword)
-          cy.wait(1000)
+          cy.wait(3000)
           // Submit login and approve access
           cy.get(`[datatest-id="logout-button"]`, { timeout: 6000 }).click()
           cy.wait(1000)

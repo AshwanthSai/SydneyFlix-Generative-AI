@@ -32,8 +32,10 @@ describe('Movies Feature', () => {
   // Test 3: Search Functionality and Navigation
   it('should search and navigate to movie details', () => {
     // Enter search term and submit
+    cy.wait(2000)
     cy.get('[data-testid="search-input"]').type('SuperMan{enter}')
     // Click search result
+    cy.wait(2000)
     cy.get('a').contains('Superman').should('exist').and('be.visible').click()
     // Force click back button (handles Alan AI Chatbar overlay)
     cy.get('button').contains(/back/i).should('exist').click({ force: true })

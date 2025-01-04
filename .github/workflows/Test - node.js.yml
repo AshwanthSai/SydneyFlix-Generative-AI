@@ -1,5 +1,4 @@
 name: Unit, Integration and E2E Test
-
 on:
   push:
     branches: [ "main" ]
@@ -25,8 +24,8 @@ jobs:
     
     - name: Install dependencies
       run: |
-        npm ci
-        npm install start-server-and-test --save-dev
+        npm ci --force
+        npm install start-server-and-test --save-dev --force
     
     - name: Run Unit & Integration Tests
       run: npm test

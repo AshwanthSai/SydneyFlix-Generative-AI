@@ -17,10 +17,10 @@ describe('Movies Feature', () => {
           cy.get('h2', { timeout: 6000 }).contains(/login/i).should('exist').and('be.visible').click()
           cy.wait(4000)
           // Enter credentials from environment variables
-          cy.get(`[id="username"]`,  { timeout: 6000 }).type(Cypress.env().tmdbTestEmail)
-          cy.get(`[id="password"]`, { timeout: 6000 }).type(Cypress.env().tmdbTestPassword)
+          cy.get(`[id="username"]`,  { timeout: 6000 }).type(Cypress.env().TMDB_TEST_EMAIL)
+          cy.get(`[id="password"]`, { timeout: 6000 }).type(Cypress.env().TMDB_TEST_PASSWORD)
           // Submit login and approve access
-          cy.wait(3000)
+          cy.wait(10000)
           cy.get('#login_button', { timeout: 6000 })
           .should('exist')
           .and('be.visible')

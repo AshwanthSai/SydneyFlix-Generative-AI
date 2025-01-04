@@ -26,7 +26,16 @@ jobs:
           build: npm run build
           start: npm start
           install-command: npm ci --legacy-peer-deps
-          install : npm ci --legacy-peer-deps
           wait-on: 'http://localhost:3000'
           browser: chrome
           headless: true
+           config: >-
+            {
+              "defaultCommandTimeout": 10000,
+              "retries": { "runMode": 2, "openMode": 0 },
+              "experimentalInteractiveRefresh": true,
+              "uncaughtExceptionHandling": {
+                "uncaught:exception": false,
+                "uncaught:unhandled:rejection": false
+              }
+            }

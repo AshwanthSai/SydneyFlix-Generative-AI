@@ -56,6 +56,7 @@ describe('Movies Feature', () => {
       // Step 8: Logout and verify
       cy.wait(1000) 
       cy.get('[data-testid="profileButton"]').should('exist').click() 
+      cy.wait(3000)
       cy.get('[datatest-id="logout-button"]').click()
       cy.location('pathname').should('eq', '/')
     })

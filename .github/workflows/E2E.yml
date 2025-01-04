@@ -28,6 +28,8 @@ jobs:
         with:
           build: npm run build
           start: npm start
+          install-command: npm ci --legacy-peer-deps
+          install : npm ci --legacy-peer-deps
           wait-on: 'http://localhost:9000'
           browser: chrome
           headless: true

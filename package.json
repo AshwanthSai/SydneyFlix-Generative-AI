@@ -37,9 +37,7 @@
     "eject": "react-scripts eject",
     "clear_jest": "jest --clearCache",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "test:e2e": "start-server-and-test start http://localhost:3000 cypress:open",
-    "test:e2e:headless": "start-server-and-test start http://localhost:3000 cypress:run"
+    "cypress:run": "cypress run"
   },
   "jest": {
     "transformIgnorePatterns": [

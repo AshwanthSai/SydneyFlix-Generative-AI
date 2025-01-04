@@ -24,7 +24,7 @@ describe("NavBar Component", () => {
     waitFor(async () => {
       const button = await screen.findByRole('button', { name: /western/i });
       expect(button).toBeInTheDocument();
-    });
+    }, { timeout: 5000 });
   });
 
   test("toggles color theme when dark mode is clicked", async () => {

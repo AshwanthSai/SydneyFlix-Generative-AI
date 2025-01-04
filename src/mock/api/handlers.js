@@ -556,6 +556,7 @@ export const handlers = [
   /* Get Actor Details */
   rest.get(`https://api.themoviedb.org/3/person/:actor_id`,
     (req, res, ctx) => {
+      console.log(actorInformation)
        // successful response
        return res(ctx.status(200), ctx.json(actorInformation))
   }),

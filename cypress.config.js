@@ -21,8 +21,9 @@ module.exports = defineConfig({
     },
   },
   env: {
-    tmdbTestEmail: process.env.tmdbTestEmail,
-    tmdbTestPassword: process.env.tmdbTestPassword,
-    projectId:  process.env.projectId,
+    tmdbTestEmail: process.env.tmdbTestEmail || process.env.GITHUB_TMDB_TEST_EMAIL,
+    tmdbTestPassword: process.env.tmdbTestPassword || process.env.GITHUB_TMDB_TEST_PASSWORD,
+    projectId: process.env.projectId || process.env.GITHUB_PROJECT_ID,
+    cypressRecordKey: process.env.cypressRecordKey || process.env.GITHUB_CYPRESS_RECORD_KEY
   },
 });

@@ -1,5 +1,4 @@
 name: Unit, Integration and E2E Test
-
 on:
   push:
     branches: [ "main" ]
@@ -42,6 +41,7 @@ jobs:
       with:
         build: npm run build
         start: npm start
+        install: npm install --force
         wait-on: 'http://localhost:9000'
         browser: chrome
         headless: true

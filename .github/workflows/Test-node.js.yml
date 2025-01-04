@@ -30,4 +30,8 @@ jobs:
     # Unit, Integration Tests via RTL
     - run: npm test
     # E2E Tests via Cypress
-    - run: npm run test:e2e:headless
+    - name: Run Cypress Test
+      uses: cypress-io/github-action@v4
+      with: 
+           command: npx cypress run
+           browser: chrome

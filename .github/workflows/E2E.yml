@@ -1,0 +1,37 @@
+name: End-to-end tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm cache clean --force
+          npm ci --legacy-peer-deps
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        env:
+          REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
+          REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
+        with:
+          build: npm run build
+          start: npm start
+          wait-on: 'http://localhost:9000'
+          browser: chrome
+          headless: true

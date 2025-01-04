@@ -1,5 +1,4 @@
 name: Unit, Integration and E2E Test
-
 on:
   push:
     branches: [ "main" ]

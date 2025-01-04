@@ -21,10 +21,10 @@ module.exports = defineConfig({
     },
   },
   env: {
-    tmdbTestEmail: (process.env?.tmdbTestEmail ?? process.env?.GITHUB_TMDB_TEST_EMAIL) || '',
-    tmdbTestPassword: (process.env?.tmdbTestPassword ?? process.env?.GITHUB_TMDB_TEST_PASSWORD) || '',
-    projectId: (process.env?.projectId ?? process.env?.GITHUB_PROJECT_ID) || '',
-    cypressRecordKey: (process.env?.cypressRecordKey ?? process.env?.GITHUB_CYPRESS_RECORD_KEY) || ''
+    tmdbTestEmail: (process.env?.tmdbTestEmail ?? secrets?.GITHUB_TMDB_TEST_EMAIL) || '',
+    tmdbTestPassword: (process.env?.tmdbTestPassword ?? secrets?.GITHUB_TMDB_TEST_PASSWORD) || '',
+    projectId: (process.env?.projectId ?? secrets?.GITHUB_PROJECT_ID) || '',
+    cypressRecordKey: (process.env?.cypressRecordKey ?? secrets?.GITHUB_CYPRESS_RECORD_KEY) || ''
   },
 });
 

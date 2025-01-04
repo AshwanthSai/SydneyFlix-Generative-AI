@@ -7,6 +7,10 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,13 +26,22 @@ jobs:
         env:
           REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
           REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
+          # For monitoring tests in Cypress Dashboard
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          # Even if headless, the project has to be build first
           build: npm run build
           start: npm start
           install-command: npm ci --legacy-peer-deps
           wait-on: 'http://localhost:3000'
+          record: true
+          parallel: true
           browser: chrome
           headless: true
+          group: 'UI Tests'
+          # Below is needed to managed Timeouts in Async Tests
+          # Similiar to cypress.json and support > index.js in Cypress Folder within Project
           config: >-
             {
               "defaultCommandTimeout": 10000,

@@ -1,4 +1,5 @@
 const { defineConfig } = require("cypress");
+require('dotenv').config()
 
 module.exports = defineConfig({
   e2e: {
@@ -20,7 +21,8 @@ module.exports = defineConfig({
     },
   },
   env: {
-    tmdbTestEmail: 'test@Sydneflix',
-    tmdbTestPassword: 'test@Sydneflix',
+    tmdbTestEmail: process.env.tmdbTestEmail,
+    tmdbTestPassword: process.env.tmdbTestPassword,
+    projectId:  process.env.projectId,
   },
 });

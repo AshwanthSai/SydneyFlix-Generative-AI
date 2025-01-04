@@ -20,7 +20,7 @@ describe('Movies Feature', () => {
           cy.get(`[id="username"]`,  { timeout: 6000 }).type(Cypress.env().tmdbTestEmail)
           cy.get(`[id="password"]`, { timeout: 6000 }).type(Cypress.env().tmdbTestPassword)
           // Submit login and approve access
-          cy.wait(3000)
+          cy.wait(10000)
           cy.get('#login_button', { timeout: 6000 })
           .should('exist')
           .and('be.visible')

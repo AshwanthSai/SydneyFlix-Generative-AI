@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:9000',
+    baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
       //To log to console. Used for debugging
       on('task', {

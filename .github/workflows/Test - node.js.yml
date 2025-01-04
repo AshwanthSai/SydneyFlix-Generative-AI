@@ -34,7 +34,7 @@ jobs:
         REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
     
     - name: Cypress run
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v6 --force
       env:
         REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
         REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}

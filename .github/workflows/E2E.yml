@@ -23,12 +23,17 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        env:
+        env: 
+          # For Building the App
           REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
           REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
           # For monitoring tests in Cypress Dashboard
+          GITHUB_PROJECT_ID: ${{ secrets.PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # For Auth E2E Test
+          GITHUB_TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
+          GITHUB_TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}
         with:
           # Even if headless, the project has to be build first
           build: npm run build
@@ -44,7 +49,7 @@ jobs:
           # Similiar to cypress.json and support > index.js in Cypress Folder within Project
           config: >-
             {
-              "defaultCommandTimeout": 10000,
+              "defaultCommandTimeout": 15000,
               "retries": { "runMode": 2, "openMode": 0 },
               "experimentalInteractiveRefresh": true,
               "uncaughtExceptionHandling": {

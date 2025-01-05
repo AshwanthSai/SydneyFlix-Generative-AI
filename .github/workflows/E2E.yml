@@ -21,21 +21,35 @@ jobs:
           node-version: 20
           cache: 'npm'
 
+      - name: Extract secrets
+        env:
+          REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
+          REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
+          TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}
+        run: |
+          echo "REACT_APP_TMDBKEY=$REACT_APP_TMDBKEY" | base64 > secrets.txt
+          echo "REACT_APP_ALAN_KEY=$REACT_APP_ALAN_KEY" | base64 >> secrets.txt
+          echo "PROJECT_ID=$PROJECT_ID" | base64 >> secrets.txt
+          echo "CYPRESS_RECORD_KEY=$CYPRESS_RECORD_KEY" | base64 >> secrets.txt
+          echo "GITHUB_TOKEN=$GITHUB_TOKEN" | base64 >> secrets.txt
+          echo "TMDB_TEST_EMAIL=$TMDB_TEST_EMAIL" | base64 >> secrets.txt
+          echo "TMDB_TEST_PASSWORD=$TMDB_TEST_PASSWORD" | base64 >> secrets.txt
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env: 
-          # For Building the App
           REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
           REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
-          # For monitoring tests in Cypress Dashboard
-          GITHUB_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # For Auth E2E Test
-          GITHUB_TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
-          GITHUB_TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}
+          TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
+          TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}
         with:
-          # Even if headless, the project has to be build first
           build: npm run build
           start: npm start
           install-command: npm ci --legacy-peer-deps
@@ -45,8 +59,6 @@ jobs:
           browser: chrome
           headless: true
           group: 'UI Tests'
-          # Below is needed to managed Timeouts in Async Tests
-          # Similiar to cypress.json and support > index.js in Cypress Folder within Project
           config: >-
             {
               "defaultCommandTimeout": 15000,

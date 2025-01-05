@@ -38,7 +38,7 @@ jobs:
           echo "TMDB_TEST_PASSWORD=$TMDB_TEST_PASSWORD" | base64 >> secrets.txt
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v5
         env: 
           REACT_APP_TMDBKEY: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MDk3ODY1MTkyMDI2N2IzNTFhMzNiNWQ1NTEzMWU2NSIsIm5iZiI6MTczMDAzMjY2NS4xMzY1ODMsInN1YiI6IjY2YjRjZDJjMmRjMjhlNDM1OTdhOWRiMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WhVY2_RaG6Zwakr1GpQLkLCcdGmQX1MfBTQsm7v0QjI
           REACT_APP_ALAN_KEY: ${{ vars.REACT_APP_ALAN_KEY }}
@@ -61,9 +61,4 @@ jobs:
             {
               "defaultCommandTimeout": 15000,
               "retries": { "runMode": 2, "openMode": 0 },
-              "experimentalInteractiveRefresh": true,
-              "uncaughtExceptionHandling": {
-                "uncaught:exception": false,
-                "uncaught:unhandled:rejection": false
-              }
             }

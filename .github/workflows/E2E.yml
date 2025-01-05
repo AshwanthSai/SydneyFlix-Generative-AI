@@ -1,12 +1,10 @@
 name: Cypress Tests
 
-on:
-  pull_request:
-    branches: ["main"]
+on: [push]
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -21,32 +19,16 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Extract secrets
-        env:
-          REACT_APP_ALAN_KEY: ${{ vars.REACT_APP_ALAN_KEY }}
-          PROJECT_ID: ${{ vars.PROJECT_ID }}
-          CYPRESS_RECORD_KEY: ${{ vars.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TMDB_TEST_EMAIL: ${{ vars.TMDB_TEST_EMAIL }}
-          TMDB_TEST_PASSWORD: ${{ vars.TMDB_TEST_PASSWORD }}
-        run: |
-          echo "REACT_APP_ALAN_KEY=$REACT_APP_ALAN_KEY" | base64 > secrets.txt
-          echo "PROJECT_ID=$PROJECT_ID" | base64 >> secrets.txt
-          echo "CYPRESS_RECORD_KEY=$CYPRESS_RECORD_KEY" | base64 >> secrets.txt
-          echo "GITHUB_TOKEN=$GITHUB_TOKEN" | base64 >> secrets.txt
-          echo "TMDB_TEST_EMAIL=$TMDB_TEST_EMAIL" | base64 >> secrets.txt
-          echo "TMDB_TEST_PASSWORD=$TMDB_TEST_PASSWORD" | base64 >> secrets.txt
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
           REACT_APP_TMDBKEY: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MDk3ODY1MTkyMDI2N2IzNTFhMzNiNWQ1NTEzMWU2NSIsIm5iZiI6MTczMDAzMjY2NS4xMzY1ODMsInN1YiI6IjY2YjRjZDJjMmRjMjhlNDM1OTdhOWRiMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WhVY2_RaG6Zwakr1GpQLkLCcdGmQX1MfBTQsm7v0QjI
-          REACT_APP_ALAN_KEY: ${{ vars.REACT_APP_ALAN_KEY }}
-          PROJECT_ID: ${{ vars.PROJECT_ID }}
-          CYPRESS_RECORD_KEY: ${{ vars.CYPRESS_RECORD_KEY }}
+          REACT_APP_ALAN_KEY: 1ec889d4ad228647f67abd4d7f8ac7cb2e956eca572e1d8b807a3e2338fdd0dc/stage
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TMDB_TEST_EMAIL: ${{ vars.TMDB_TEST_EMAIL }}
-          TMDB_TEST_PASSWORD: ${{ vars.TMDB_TEST_PASSWORD }}
+          TMDB_TEST_EMAIL: test@Sydneflix
+          TMDB_TEST_PASSWORD: test@Sydneflix
+          PROJECT_ID: 1v8h2y
         with:
           build: npm run build
           start: npm start
@@ -57,13 +39,3 @@ jobs:
           browser: chrome
           headless: true
           group: 'UI Tests'
-          config: >-
-            {
-              "defaultCommandTimeout": 15000,
-              "retries": { "runMode": 2, "openMode": 0 },
-              "experimentalInteractiveRefresh": true,
-              "uncaughtExceptionHandling": {
-                "uncaught:exception": false,
-                "uncaught:unhandled:rejection": false
-              }
-            }

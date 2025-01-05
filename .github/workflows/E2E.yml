@@ -26,9 +26,9 @@ jobs:
           REACT_APP_ALAN_KEY: 1ec889d4ad228647f67abd4d7f8ac7cb2e956eca572e1d8b807a3e2338fdd0dc/stage
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TMDB_TEST_EMAIL: test@Sydneflix
-          TMDB_TEST_PASSWORD: test@Sydneflix
-          PROJECT_ID: 1v8h2y
+          CYPRESS_TMDB_TEST_EMAIL: test@Sydneflix
+          CYPRESS_TMDB_TEST_PASSWORD: test@Sydneflix
+          CYPRESS_PROJECT_ID: 1v8h2y
         with:
           build: npm run build
           start: npm start

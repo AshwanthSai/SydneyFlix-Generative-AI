@@ -16,13 +16,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: 'npm'
 
+      - name: Write the cypress.env.json file 
+        # use quotes around the secret, as its value
+        # is simply inserted as a string into the command
+        run: |
+          echo '${{ secrets.CYPRESS_ENV_CI }}' > cypress.env.json
+
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v3
         env:
           CYPRESS_RECORD_KEY: "${{ secrets.CYPRESS_RECORD_KEY }}"
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

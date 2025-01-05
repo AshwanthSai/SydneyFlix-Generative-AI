@@ -23,13 +23,13 @@ jobs:
 
       - name: Extract secrets
         env:
-          REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
-          REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
-          TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}
+          REACT_APP_TMDBKEY: ${{ vars.REACT_APP_TMDBKEY }}
+          REACT_APP_ALAN_KEY: ${{ vars.REACT_APP_ALAN_KEY }}
+          PROJECT_ID: ${{ vars.PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ vars.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ vars.GITHUB_TOKEN }}
+          TMDB_TEST_EMAIL: ${{ vars.TMDB_TEST_EMAIL }}
+          TMDB_TEST_PASSWORD: ${{ vars.TMDB_TEST_PASSWORD }}
         run: |
           echo "REACT_APP_TMDBKEY=$REACT_APP_TMDBKEY" | base64 > secrets.txt
           echo "REACT_APP_ALAN_KEY=$REACT_APP_ALAN_KEY" | base64 >> secrets.txt
@@ -42,13 +42,13 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env: 
-          REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
-          REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
-          TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}
+          REACT_APP_TMDBKEY: ${{ vars.REACT_APP_TMDBKEY }}
+          REACT_APP_ALAN_KEY: ${{ vars.REACT_APP_ALAN_KEY }}
+          PROJECT_ID: ${{ vars.PROJECT_ID }}
+          CYPRESS_RECORD_KEY: ${{ vars.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ vars.GITHUB_TOKEN }}
+          TMDB_TEST_EMAIL: ${{ vars.TMDB_TEST_EMAIL }}
+          TMDB_TEST_PASSWORD: ${{ vars.TMDB_TEST_PASSWORD }}
         with:
           build: npm run build
           start: npm start

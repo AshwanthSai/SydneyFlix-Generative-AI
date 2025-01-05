@@ -60,5 +60,5 @@ jobs:
           config: >-
             {
               "defaultCommandTimeout": 15000,
-              "retries": { "runMode": 2, "openMode": 0 },
+              "retries": { "runMode": 2, "openMode": 0 }
             }

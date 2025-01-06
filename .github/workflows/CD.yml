@@ -1,0 +1,18 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["Unit + Integration Tests via RTL", "E2E Via Cypress"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Pull Docker Image
+        run: sudo docker pull ashwanthsai/sydneyflix:latest
+      - name: Delete Old Docker Container
+        run: sudo docker rm -f sydneyflix || true
+      - name: Run Docker Container
+        run: sudo docker run -d -p 80:80 --name sydneyflix ashwanthsai/sydneyflix:latest

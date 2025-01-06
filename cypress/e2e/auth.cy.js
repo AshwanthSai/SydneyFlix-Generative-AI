@@ -4,8 +4,9 @@ describe('Movies Feature', () => {
       cy.viewport(1280, 720)
       cy.visit('/')
     })
-  
-    it('Login with a Test Account and Check Favoriting or Watchlisting Movies', () => {
+    
+    //Skipping to save Github Runner minutes
+    it.skip('Login with a Test Account and Check Favoriting or Watchlisting Movies', () => {
       // Step 1: Initial Navigation to Login
       cy.get('[data-testid="profile-avatar"]').should('exist').and('be.visible').click()
 

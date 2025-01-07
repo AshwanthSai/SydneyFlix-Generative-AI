@@ -2,7 +2,7 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflows: ["Unit + Integration Tests via RTL", "E2E Via Cypress"]
+    workflows: "Docker Image CI"
     types:
       - completed
 
@@ -14,7 +14,9 @@ jobs:
     steps:
       - name: Pull Docker Image
         run: sudo docker pull ashwanthsai/sydneyflixtest:latest
+
       - name: Delete Old Docker Container
         run: sudo docker rm -f production || true
+
       - name: Run Docker Container
         run: sudo docker run -d -p 80:80 --name production ashwanthsai/sydneyflixtest

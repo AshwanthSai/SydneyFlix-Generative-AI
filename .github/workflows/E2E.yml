@@ -1,5 +1,4 @@
 name: E2E Via Cypress
-
 on:
   pull_request:
     branches: [ "main" ]

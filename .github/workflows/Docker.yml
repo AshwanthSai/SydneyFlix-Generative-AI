@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +32,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ashwanthsai/sydneyflix:latest
+          tags: ashwanthsai/sydneyflixtest:latest
           build-args: |
             REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }}
             REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }}

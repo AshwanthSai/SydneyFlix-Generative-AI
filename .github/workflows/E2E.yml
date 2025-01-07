@@ -28,6 +28,7 @@ jobs:
           start: npm start
           install-command: npm ci --legacy-peer-deps
           wait-on: 'http://localhost:3000'
+          record: false
           parallel: true
           browser: chrome
           headless: true

@@ -31,6 +31,18 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # Create a stage for building the application.
 FROM deps as build
 
+ARG REACT_APP_TMDBKEY
+ARG REACT_APP_ALAN_KEY
+ARG TMDB_TEST_EMAIL
+ARG TMDB_TEST_PASSWORD
+ARG PROJECT_ID
+
+ENV REACT_APP_TMDBKEY=${REACT_APP_TMDBKEY}
+ENV REACT_APP_ALAN_KEY=${REACT_APP_ALAN_KEY}
+ENV TMDB_TEST_EMAIL=${TMDB_TEST_EMAIL}
+ENV TMDB_TEST_PASSWORD=${TMDB_TEST_PASSWORD}
+ENV PROJECT_ID=${PROJECT_ID}
+
 # Download additional development dependencies before building, as some projects require
 # "devDependencies" to be installed to build. If you don't need this, remove this step.
 RUN --mount=type=bind,source=package.json,target=package.json \
@@ -46,6 +58,14 @@ RUN npm run build
 
 ################################################################################
 # Production Stage
+# FROM nginx:stable-alpine AS production
+# COPY --from=build /usr/src/app/build /usr/share/nginx/html
+# COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+# EXPOSE 8080
+# HEALTHCHECK --interval=30s --timeout=3s \
+#     CMD wget --quiet --tries=1 --spider http://localhost:8080/ || exit 1
+# CMD ["nginx", "-g", "daemon off;"]
+
 FROM nginx:stable-alpine AS production
 COPY --from=build /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80

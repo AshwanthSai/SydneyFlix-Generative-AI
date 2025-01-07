@@ -24,6 +24,14 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+        context: .
+        build-args: |
+          REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
+          REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
+          TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
+          TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       - name: Build and push
         uses: docker/build-push-action@v6

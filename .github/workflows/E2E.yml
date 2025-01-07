@@ -23,8 +23,8 @@ jobs:
           build: npm run build
           start: npm start
           install-command: |
-            npm config set REACT_APP_TMDBKEY="${{ secrets.REACT_APP_TMDBKEY }}" && \
-            npm config set REACT_APP_ALAN_KEY="${{ secrets.REACT_APP_ALAN_KEY }}" && \
+            npm config set REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }} && \
+            npm config set REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }} && \
             npm ci --legacy-peer-deps
           wait-on: 'http://localhost:3000'
           browser: chrome

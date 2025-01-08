@@ -1,15 +1,14 @@
 name: Docker Image CI
 
 on:
-  workflow_run:
-    workflows: ["Unit + Integration Tests via RTL", "E2E Via Cypress"]
-    types:
-      - completed
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -34,8 +33,6 @@ jobs:
           push: true
           tags: |
             ashwanthsai/sydneyflixtest:latest
-          cache-from: type=registry,ref=ashwanthsai/sydneyflixtest:buildcache
-          cache-to: type=registry,ref=ashwanthsai/sydneyflixtest:buildcache,mode=max
           build-args: |
             REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }}
             REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }}

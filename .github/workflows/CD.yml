@@ -5,7 +5,6 @@ on:
     workflows: ["Unit + Integration Tests via RTL", "E2E Via Cypress", "Docker Image CI"]
     types:
       - completed
-
 jobs:
   deploy:
     runs-on: self-hosted

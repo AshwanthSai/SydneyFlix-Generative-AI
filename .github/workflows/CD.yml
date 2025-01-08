@@ -2,7 +2,7 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflows: ["Docker Image CI"]  # Add brackets for array
+    workflows: ["Unit + Integration Tests via RTL", "E2E Via Cypress"]
     types:
       - completed
 

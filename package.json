@@ -2,7 +2,8 @@
   "name": "SydneyFlix",
   "version": "0.1.0",
   "private": true,
-  "homepage": "",
+  "homepage": "/sydneyflix/",
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@alan-ai/alan-sdk-web": "^1.8.72",
     "@emotion/react": "^11.13.0",
@@ -33,7 +34,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -b gh-pages -d build",
     "start": "set PORT=3000 && react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=. react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
     "eject": "react-scripts eject",
     "clear_jest": "jest --clearCache",

@@ -32,7 +32,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ashwanthsai/sydneyflixtest:latest
+            ashwanthsai/sydneyflix:latest
           build-args: |
             REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }}
             REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }}

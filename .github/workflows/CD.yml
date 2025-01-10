@@ -1,28 +1,23 @@
-# Continuous Deployment workflow
 name: CD Pipeline
 
-# Trigger after Docker image build
 on:
   workflow_run:
-    workflows: ["Docker Image CI"]
+    workflows: ["Unit + Integration Tests via RTL", "E2E Via Cypress", "Docker Image CI"]
     types:
       - completed
 
 jobs:
-  # Deployment job
   deploy:
     runs-on: self-hosted
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     
     steps:
-      # Pull latest Docker image
       - name: Pull Docker Image
         run: sudo docker pull ashwanthsai/sydneyflix:latest || exit 1
 
-      # Remove existing container
       - name: Delete Old Docker Container
         run: sudo docker rm -f production || true
 
-      # Start new container with environment variables
       - name: Run Docker Container
         run: |
           sudo docker run -d \
@@ -35,4 +30,3 @@ jobs:
             -e TMDB_TEST_PASSWORD=${{ secrets.TMDB_TEST_PASSWORD }} \
             -e PROJECT_ID=${{ secrets.PROJECT_ID }} \
             ashwanthsai/sydneyflix:latest
-

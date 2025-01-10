@@ -1,6 +1,5 @@
 # Continuous Deployment workflow
 name: CD Pipeline
-
 # Trigger after Docker image build
 on:
   workflow_run:

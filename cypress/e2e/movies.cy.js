@@ -26,7 +26,7 @@ describe('Movies Feature', () => {
     // Test back navigation
     cy.get('button').contains(/back/i).should('exist').click()
     // Verify return to homepage
-    cy.location('pathname').should('eq', '/')
+    cy.location('pathname').should('eq', '/sydneyflix/')
   })
 
   // Test 3: Search Functionality and Navigation
@@ -40,6 +40,6 @@ describe('Movies Feature', () => {
     // Force click back button (handles Alan AI Chatbar overlay)
     cy.get('button').contains(/back/i).should('exist').click({ force: true })
     // Verify return to homepage
-    cy.location('pathname').should('eq', '/')
+    cy.location('pathname').should('eq', '/sydneyflix/')
   })
 })

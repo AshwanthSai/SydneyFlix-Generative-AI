@@ -19,21 +19,6 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # Build stage
 FROM deps as build
 
-# Build arguments for environment variables
-# ARG REACT_APP_TMDBKEY
-# ARG REACT_APP_ALAN_KEY
-# ARG TMDB_TEST_EMAIL
-# ARG TMDB_TEST_PASSWORD
-# ARG PROJECT_ID
-
-# Set environment variables
-# ENV REACT_APP_TMDBKEY=$REACT_APP_TMDBKEY
-# ENV REACT_APP_ALAN_KEY=$REACT_APP_ALAN_KEY
-# ENV TMDB_TEST_EMAIL=$TMDB_TEST_EMAIL
-# ENV TMDB_TEST_PASSWORD=$TMDB_TEST_PASSWORD
-# ENV PROJECT_ID=$PROJECT_ID
-
-# Install all dependencies for build
 # Install all dependencies for build
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \

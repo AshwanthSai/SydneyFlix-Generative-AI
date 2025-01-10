@@ -25,7 +25,7 @@ export const fetchToken = async () => {
                 window.location.origin = The root domain of your app
                 www.google.com  
             */
-            window.location.href = `https://www.themoviedb.org/authenticate/${localStorage.getItem("token")}?redirect_to=${window.location.origin}/approved`;
+            window.location.href = `https://www.themoviedb.org/authenticate/${localStorage.getItem("token")}?redirect_to=${window.location.origin}/sydneyflix/approved`;
         }
     } catch (error) {
         console.log("Could not fetch Request Token ", error)

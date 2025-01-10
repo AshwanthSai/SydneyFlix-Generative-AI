@@ -1,0 +1,38 @@
+# Continuous Deployment workflow
+name: CD Pipeline
+
+# Trigger after Docker image build
+on:
+  workflow_run:
+    workflows: ["Docker Image CI"]
+    types:
+      - completed
+
+jobs:
+  # Deployment job
+  deploy:
+    runs-on: self-hosted
+    
+    steps:
+      # Pull latest Docker image
+      - name: Pull Docker Image
+        run: sudo docker pull ashwanthsai/sydneyflix:latest || exit 1
+
+      # Remove existing container
+      - name: Delete Old Docker Container
+        run: sudo docker rm -f production || true
+
+      # Start new container with environment variables
+      - name: Run Docker Container
+        run: |
+          sudo docker run -d \
+            -p 3000:3000 \
+            --name production \
+            --restart unless-stopped \
+            -e REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }} \
+            -e REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }} \
+            -e TMDB_TEST_EMAIL=${{ secrets.TMDB_TEST_EMAIL }} \
+            -e TMDB_TEST_PASSWORD=${{ secrets.TMDB_TEST_PASSWORD }} \
+            -e PROJECT_ID=${{ secrets.PROJECT_ID }} \
+            ashwanthsai/sydneyflix:latest
+

@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       
@@ -30,8 +29,6 @@ jobs:
         with:
           push: true
           tags: ashwanthsai/sydneyflix:latest
-          secrets: |
-            "REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }}"
-            "REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }}"
-            "TMDB_TEST_EMAIL=${{ secrets.TMDB_TEST_EMAIL }}"
-            "TMDB_TEST_PASSWORD=${{ secrets.TMDB_TEST_PASSWORD }}"
+          build-args: |
+            REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }}
+            REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }}

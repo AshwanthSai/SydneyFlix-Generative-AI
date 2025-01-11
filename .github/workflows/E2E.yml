@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: E2E Via Cypress
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,14 +19,15 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        env:
-          REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
-          REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
         with:
           build: npm run build
           start: npm start
           install-command: npm ci --legacy-peer-deps
-          install : npm ci --legacy-peer-deps
           wait-on: 'http://localhost:3000'
           browser: chrome
           headless: true
+        env:
+          REACT_APP_TMDBKEY: ${{ secrets.REACT_APP_TMDBKEY }}
+          REACT_APP_ALAN_KEY: ${{ secrets.REACT_APP_ALAN_KEY }}
+          TMDB_TEST_EMAIL: ${{ secrets.TMDB_TEST_EMAIL }}
+          TMDB_TEST_PASSWORD: ${{ secrets.TMDB_TEST_PASSWORD }}

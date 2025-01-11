@@ -2,7 +2,7 @@
   "name": "SydneyFlix",
   "version": "0.1.0",
   "private": true,
-  "homepage": "",
+  "homepage": "/sydneyflix", 
   "dependencies": {
     "@alan-ai/alan-sdk-web": "^1.8.72",
     "@emotion/react": "^11.13.0",
@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.22.0",
     "cypress-slow-down": "^1.1.0",
+    "dotenv": "^16.4.7",
     "gh-pages": "^4.0.0",
     "i": "^0.3.7",
     "jest": "^27.5.1",
@@ -31,8 +32,9 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -b gh-pages -d build",
-    "start": "set PORT=3000 && react-scripts start",
-    "build": "react-scripts build",
+    "start": "set PORT=3000&&set PUBLIC_URL=/&&react-scripts start",
+    "start:prod": "set PORT=3000&&set PUBLIC_URL=/sydneyflix&&react-scripts start",
+    "build": "PUBLIC_URL=/sydneyflix react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
     "eject": "react-scripts eject",
     "clear_jest": "jest --clearCache",

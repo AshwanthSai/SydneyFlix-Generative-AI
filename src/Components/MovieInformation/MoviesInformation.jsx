@@ -26,7 +26,7 @@ const Movie = () => {
   const{data: recommendations, error:recommendationsFetchingError, isLoading:isRecommendationsLoading} = useGetMovieRecommendationsQuery(({movie_id: id, page: page.toString()}));
   const theme = useTheme();
   const xl = useMediaQuery((theme) => theme.breakpoints.up('xl'));
-  const numberOfMovies = xl ? 14 : 15 ;
+  const numberOfMovies = xl ? 13 : 18 ;
   const buttonsContainerOverlapPrevent = useMediaQuery('(max-width:1047px)');
 
   /* Modal, Youtube Video */

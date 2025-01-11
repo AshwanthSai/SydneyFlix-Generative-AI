@@ -1,5 +1,4 @@
 name: CD Pipeline
-
 on:
   workflow_run:
     workflows: ["Docker Image CI"]

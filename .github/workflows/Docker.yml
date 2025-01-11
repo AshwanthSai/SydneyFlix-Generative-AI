@@ -28,14 +28,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: .
-          platforms: linux/amd64,linux/arm64
           push: true
-          tags: |
-            ashwanthsai/sydneyflix:latest
-          build-args: |
+          tags: ashwanthsai/sydneyflix:latest
+          secrets: |
             REACT_APP_TMDBKEY=${{ secrets.REACT_APP_TMDBKEY }}
             REACT_APP_ALAN_KEY=${{ secrets.REACT_APP_ALAN_KEY }}
             TMDB_TEST_EMAIL=${{ secrets.TMDB_TEST_EMAIL }}
             TMDB_TEST_PASSWORD=${{ secrets.TMDB_TEST_PASSWORD }}
-            PROJECT_ID=${{ secrets.PROJECT_ID }}

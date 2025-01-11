@@ -18,7 +18,11 @@ root.render(
     /* Passing theme as Context */
     <Provider store={store}>
         <ToggleColorMode>
-            <BrowserRouter>
+          {/* 
+             Sets base URL path for all routes
+             
+           */}
+            <BrowserRouter basename="/sydneyflix">
                 <App className="index" />
             </BrowserRouter>
         </ToggleColorMode>

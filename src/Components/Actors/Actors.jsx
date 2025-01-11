@@ -15,13 +15,12 @@ const Actors = () => {
   const {id} = useParams();
   const [page, setPage] = useState(1)
   const {data, error, isLoading} = useGetActorDetailsQuery(id);
-  console.log(data)
   const theme = useTheme();
   const {data : actorMovies, error : actorMoviesError, isLoading :actorMoviesIsLoading} = useGetMoviesByActorQuery({actor_id:id,page: page.toString()});
-  console.log(actorMovies)
+
   let history = useHistory();
   const xl = useMediaQuery((theme) => theme.breakpoints.up('xl'));
-  const numberOfMovies = xl ? 14 : 15 ;
+  const numberOfMovies = xl ? 13 : 18 ;
 
   if(isLoading) {
     return(

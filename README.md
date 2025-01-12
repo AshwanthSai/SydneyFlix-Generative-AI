@@ -1,7 +1,4 @@
-# Project Title
-
-[![Latest release](https://img.shields.io/github/v/release/aregtech/areg-sdk?label=Latest%20release&style=social)](https://ec2-51-21-44-213.eu-north-1.compute.amazonaws.com/sydneyflix/)
-[![GitHub commits](https://img.shields.io/github/commits-since/aregtech/areg-sdk/v1.5.0.svg?style=social)](https://github.com/AshwanthSai/SydneyFlix-Generative-AI/commits/main/)
+# SydneyFlix
 
 ![demo](https://github.com/user-attachments/assets/2aeefcd4-bf5e-4f0c-9e35-c44b0417a146)
 
@@ -15,10 +12,12 @@
 
 Here is a working live demo: http://ec2-51-21-44-213.eu-north-1.compute.amazonaws.com/sydneyflix/
 
+Sydneyflix Documentation (High Level Design & Low Level Design) : https://docs.google.com/document/d/1pBgBPbBMO60-6_7gbj91j6n6Ci0ZEkLfDhCCxWZDkgo/edit?usp=sharing)
+
 ## 📝 Description
 Welcome to my project! Here's a brief overview of what inspired me to create it, the problem it solves, and what I've learned throughout its development:
 
-Motivation: My blind cousin had trouble choosing his favorite series on Netflix because his screen reader couldn’t handle logical instructions. This is a common problem for vision-impaired Australians (Vision Australia). I created an AI agent that accepts both audio and video inputs to help address this issue.
+Motivation: My blind cousin had trouble choosing his favorite series on Netflix because his screen reader couldn’t handle logical instructions. This is a common problem for vision-impaired Australians Australians ([Vision Australia](https://www.visionaustralia.org/business-consulting/digital-access/assistive-technology-survey/overview)). I created an AI agent that accepts both audio and video inputs to help address this issue.
 
 Why I Built This Project: I wanted to develop a practical, user-friendly, and production-ready MVP to solve this pressing problem.
 
@@ -184,7 +183,7 @@ GitHub: @adrianhajdin
 GitHub: @MitchelSt
 
 
-## 📞 Contact Us
+## 📞 Contact Me
 
 [![Follow us on LinkedIn](https://img.shields.io/badge/LinkedIn-AshwanthSai-blue?style=flat&logo=linkedin&logoColor=b0c0c0&labelColor=363D44)](https://www.linkedin.com/in/a-sai/)
 [![Email Badge](https://img.shields.io/badge/Gmail-Contact_Me-green?style=flat-square&logo=gmail&logoColor=FFFFFF&labelColor=3A3B3C&color=62F1CD)](mailto:ashwanth.saie@gmail.com)

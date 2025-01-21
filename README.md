@@ -17,7 +17,7 @@ Sydneyflix Documentation (High Level Design & Low Level Design) : https://docs.g
 ## 📝 Description
 Welcome to my project! Here's a brief overview of what inspired me to create it, the problem it solves, and what I've learned throughout its development:
 
-Motivation: My blind cousin had trouble choosing his favorite series on Netflix because his screen reader couldn’t handle logical instructions. This is a common problem for vision-impaired Australians Australians ([Vision Australia](https://www.visionaustralia.org/business-consulting/digital-access/assistive-technology-survey/overview)). I created an AI agent that accepts both audio and video inputs to help address this issue.
+Motivation: My blind cousin had trouble choosing his favorite series on Netflix because his screen reader couldn’t handle logical instructions. This is a common problem for vision-impaired Australians. ([Vision Australia](https://www.visionaustralia.org/business-consulting/digital-access/assistive-technology-survey/overview)). I created an AI agent that accepts both audio and video inputs to help address this issue.
 
 Why I Built This Project: I wanted to develop a practical, user-friendly, and production-ready MVP to solve this pressing problem.
 

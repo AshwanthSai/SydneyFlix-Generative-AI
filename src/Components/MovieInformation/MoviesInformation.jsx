@@ -44,12 +44,31 @@ const Movie = () => {
   const{data: favouriteMovies, refetch: refetchFavouriteMovies, error:favouriteMoviesError, isLoading:favouriteMoviesLoading} = useGetFavoriteMoviesQuery(({userID: accountID, page: 1, session_id : sessionID}));
 
   
-   useEffect(() => {
-      // Refetch on Component Mount 
-      window.scrollTo(0, 0)
-      refetchWatchListMovies()
-      refetchFavouriteMovies()
-    }, [id]) 
+  // Prevent CORS when browsing fast.
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    const fetchData = async () => {
+      try {
+        await refetchWatchListMovies({ signal });
+        await refetchFavouriteMovies({ signal });
+        window.scroll(0,0)
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          console.error('Fetch error:', error);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [refetchWatchListMovies, refetchFavouriteMovies]);
   
 
   useEffect(() => {

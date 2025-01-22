@@ -9,7 +9,6 @@ jobs:
     runs-on: self-hosted
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
-    
     steps:
       - name: Pull Docker Image
         run: sudo docker pull ashwanthsai/sydneyflix:latest || exit 1

@@ -18,15 +18,21 @@ export default makeStyles((theme) => ({
     },
   },
   poster: {
+    /* 
+       It's often used with images, containers, or
+       text blocks to ensure that they don’t stretch too wide on larger screens.
+    */
+    maxWidth: '90%',
     borderRadius: '20px',
-    boxShadow: '0.5em 1em 1em rgb(64, 64, 70)',
+    objectFit: 'cover',
+    boxShadow: '0.5em 0.5em 1em',
     width: '80%',
     [theme.breakpoints.down('md')]: {
-      margin: '0 auto !imporatant',
+      margin: '0 auto !important',
       width: '50%',
     },
     [theme.breakpoints.down('sm')]: {
-      margin: '0 auto !imporatant',
+      margin: '0 auto !important',
       width: '100%',
       height: '350px',
       marginBottom: '30px',

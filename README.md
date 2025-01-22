@@ -10,9 +10,10 @@
 
 ## 🌐 Demo
 
-Here is a working live demo: http://ec2-51-21-44-213.eu-north-1.compute.amazonaws.com/sydneyflix/
+Here is a working live demo: [portfoliosai.link/sydneyflix/](https://portfoliosai.link/sydneyflix/)
 
-Sydneyflix Documentation (High Level Design & Low Level Design) : https://docs.google.com/document/d/1pBgBPbBMO60-6_7gbj91j6n6Ci0ZEkLfDhCCxWZDkgo/edit?usp=sharing)
+Sydneyflix Documentation (High Level Design & Low Level Design): [View Documentation](https://docs.google.com/document/d/1pBgBPbBMO60-6_7gbj91j6n6Ci0ZEkLfDhCCxWZDkgo/edit?usp=sharing)
+
 
 ## 📝 Description
 Welcome to my project! Here's a brief overview of what inspired me to create it, the problem it solves, and what I've learned throughout its development:
@@ -21,7 +22,7 @@ Welcome to my project! Here's a brief overview of what inspired me to create it,
 Motivation:
 My blind cousin struggled to navigate Netflix with his screen reader, unable to choose his favorite series. This issue is widespread among vision-impaired Australians, who face digital accessibility challenges. According to [Vision Australia](https://www.visionaustralia.org/business-consulting/digital-access/assistive-technology-survey/overview), many assistive technologies fall short.
 
-To address this, I developed an AI agent that accepts both audio and video inputs, offering a seamless user experience. Vision-impaired users can now navigate and select entertainment through natural voice commands and visual feedback.
+To address this, I developed an AI agent that accepts chat inputs, offering a seamless user experience. Vision-impaired users can now navigate and select entertainment through natural chat commands and audio feedback.
 By enhancing accessibility, we can bridge the digital divide and bring joy to everyone. Let's innovate to make the world more inclusive and accessible for all.
 
 
@@ -42,10 +43,11 @@ What I Learned: Throughout the development process, I learned:
       - API Testing - Postman
       - CI/CD Pipelines: GitHub Actions, AWS
       - Containerization: Docker
-      - Deployment: Nginx, AWS EC2
+      - Deployment: Nginx, AWS EC2, Route 53
       - Build Tools: Create React App
       - Linting and Code Quality: ESLint
       - AI Development: Creating AI agents using Alan AI
+      - OS : Linux, Windows
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)

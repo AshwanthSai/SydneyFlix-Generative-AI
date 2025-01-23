@@ -11,7 +11,11 @@
 ## 🌐 Demo
 
 Here is a working live demo: [portfoliosai.link/sydneyflix/](https://portfoliosai.link/sydneyflix/)
+
+
 Sydneyflix Documentation (High Level Design & Low Level Design): [View Documentation](https://docs.google.com/document/d/1pBgBPbBMO60-6_7gbj91j6n6Ci0ZEkLfDhCCxWZDkgo/edit?usp=sharing)
+
+
 Sydney Flix Video Showcase: [Watch Video](https://www.youtube.com/watch?v=5BcRkFiA26s)
 
 ## 📝 Description

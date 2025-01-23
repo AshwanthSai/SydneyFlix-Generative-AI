@@ -11,6 +11,9 @@ import userReducer from '../features/auth';
 import ToggleColorMode from "./ToggleColorMode.jsx";
 import { setupStore } from "../app/store.js";
 
+/* 
+  Aux to use within Cypres E2E Tests
+*/
 
 export function renderWithProviders(ui, extendedRenderOptions = {}) {
   const {

@@ -33,7 +33,7 @@ const useAlan = () => {
                 }
               }
             },     
-            onCommand: function({command, cMode, genres, genreOrCategory, searchQuery, route, actorName, movieName}){
+            onCommand: function({command, cMode, genres, genreOrCategory, searchQuery, route, actorName, movieName, page}){
               if(command === 'chooseGenre') {
                 const foundGenre = genres.find((g) => g.name.toLowerCase() == genreOrCategory.toLowerCase());
                 // Genre
@@ -113,7 +113,7 @@ const useAlan = () => {
             } else if(command == "GoFront") {
                 history.goForward()
                 window.scrollTo(0, 0);
-            }
+            } 
           }, 
             onEvent: function (e) {
                 switch (e.name) {

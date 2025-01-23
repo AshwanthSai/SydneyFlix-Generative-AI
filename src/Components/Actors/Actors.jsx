@@ -20,7 +20,8 @@ const Actors = () => {
 
   let history = useHistory();
   const xl = useMediaQuery((theme) => theme.breakpoints.up('xl'));
-  const numberOfMovies = xl ? 13 : 18 ;
+  // 1 less since, we have no featured movies
+  const numberOfMovies = xl ? 12 : 18 ;
 
   if(isLoading) {
     return(

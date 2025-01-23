@@ -1,4 +1,4 @@
-import { screen,} from "@testing-library/react";
+import { screen} from "@testing-library/react";
 import { renderWithProviders } from "../../utils/test-utils.jsx"
 import '@testing-library/jest-dom'; 
 import MovieList from "./MovieList.jsx"; 

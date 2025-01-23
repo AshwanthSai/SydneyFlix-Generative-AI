@@ -11,9 +11,8 @@
 ## 🌐 Demo
 
 Here is a working live demo: [portfoliosai.link/sydneyflix/](https://portfoliosai.link/sydneyflix/)
-
 Sydneyflix Documentation (High Level Design & Low Level Design): [View Documentation](https://docs.google.com/document/d/1pBgBPbBMO60-6_7gbj91j6n6Ci0ZEkLfDhCCxWZDkgo/edit?usp=sharing)
-
+Sydney Flix Video Showcase: [Watch Video](https://www.youtube.com/watch?v=5BcRkFiA26s)
 
 ## 📝 Description
 Welcome to my project! Here's a brief overview of what inspired me to create it, the problem it solves, and what I've learned throughout its development:
@@ -48,6 +47,7 @@ What I Learned: Throughout the development process, I learned:
       - Linting and Code Quality: ESLint
       - AI Development: Creating AI agents using Alan AI
       - OS : Linux, Windows
+      - Lines of Code - 2,815
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)

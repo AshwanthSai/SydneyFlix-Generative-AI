@@ -10,7 +10,7 @@
 
 ## 🌐 Demo
 
-Here is a working live demo: [portfoliosai.link/sydneyflix/](https://portfoliosai.link/sydneyflix/)
+Here is a working live demo: [portfoliosai.link/sydneyflix/](https://portfoliosai.link/sydneyflix/) (Optimized for Desktops)
 
 
 Sydneyflix Documentation (High Level Design & Low Level Design): [View Documentation](https://docs.google.com/document/d/1pBgBPbBMO60-6_7gbj91j6n6Ci0ZEkLfDhCCxWZDkgo/edit?usp=sharing)
@@ -71,14 +71,20 @@ What I Learned: Throughout the development process, I learned:
 
 
 
-## 📖 Table of Contents (Optional)
+## 📖 Table of Contents
 
-If your README is long, add a table of contents to make it easy for users to find what they need.
-
-- [Installation](#installation)
-- [Usage](#usage)
+- [Demo](#-demo)
+- [Description](#-description)
+- [Features](#-features)
+- [Setup Project](#-setup-project)
+  - [Install Project](#install-project)
+  - [ENV file](#env-file)
+  - [OS-Specific Separator](#os-specific-separator)
+- [How to Contribute](#-how-to-contribute)
+  - [Bug / Feature Request](#bug--feature-request)
 - [Credits](#credits)
-- [License](#license)
+- [Contact Me](#contact-me)
+
 
 ## ✨ Features
 
